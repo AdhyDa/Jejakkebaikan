@@ -114,6 +114,134 @@ body {
     color: rgba(0, 70, 255, 1);
 }
 
+/* User Menu */
+.user-menu {
+    position: relative;
+}
+
+.user-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+}
+
+.user-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.user-name {
+    color: rgba(23, 48, 89, 1);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 70, 255, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.user-avatar svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* User Dropdown */
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    min-width: 240px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.user-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.dropdown-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(23, 48, 89, 1);
+    margin: 0 0 4px 0;
+}
+
+.dropdown-email {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: #E0E0E0;
+    margin: 8px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #F5F5F5;
+}
+
+.dropdown-item svg {
+    color: #666;
+}
+
+.logout-item {
+    color: #DC3545;
+}
+
+.logout-item:hover {
+    background-color: #FEE;
+}
+
+.logout-item svg {
+    color: #DC3545;
+}
+
 .btn-login {
     text-decoration: none;
     color: rgba(0, 70, 255, 1);
@@ -1302,4 +1430,633 @@ body {
     .faq-answer p {
         font-size: 14px;
     }
+}
+
+/* Layout & Sidebar */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #fff; /* Sidebar background putih */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-sidebar {
+    width: 280px;
+    padding: 30px 20px;
+    border-right: 1px solid #eee;
+    background-color: #fff;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #173059;
+    margin-bottom: 25px;
+    padding-left: 10px;
+}
+
+.dashboard-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #666;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #f5f5f5;
+    color: #0046FF;
+}
+
+.menu-item.active {
+    background-color: #E6F0FF; /* Warna background biru muda */
+    color: #173059;
+    font-weight: 700;
+}
+
+.menu-item.text-danger {
+    color: #FF4A4A;
+}
+
+.menu-item.text-danger:hover {
+    background-color: #FFF0F0;
+}
+
+.menu-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    /* Asumsi icon menggunakan SVG atau font icon, ukurannya disesuaikan */
+}
+
+/* Main Content Area */
+.dashboard-main {
+    flex: 1;
+    padding: 30px 40px;
+    background-color: #F8F9FA; /* Background abu-abu muda untuk konten */
+}
+
+/* Breadcrumb */
+.dash-breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.dash-breadcrumb a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Header Section with Button */
+.dash-header {
+    margin-bottom: 30px;
+}
+
+.btn-create-campaign {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0046FF;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 70, 255, 0.3);
+    border: none;
+}
+
+.btn-create-campaign:hover {
+    background-color: #0033cc;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #173059;
+    margin-bottom: 20px;
+}
+
+/* Campaign Card Custom Style */
+.dash-campaign-card {
+    background: white;
+    border: 2px solid #333; /* Border hitam tebal sesuai gambar */
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+.card-img-wrapper {
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 180px;
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #334D98; /* Warna biru judul */
+    margin-bottom: 5px;
+}
+
+.card-status {
+    font-weight: 600;
+    font-size: 14px;
+}
+.status-active { color: #0046FF; }
+.status-finished { color: #FF9F43; }
+.status-draft { color: #666; }
+
+.org-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.card-desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Progress Bar Custom */
+.custom-progress {
+    height: 8px;
+    background-color: #E0E0E0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.custom-progress-bar {
+    height: 100%;
+    background-color: #0046FF;
+    border-radius: 10px;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+.stat-group strong {
+    display: block;
+    font-size: 16px;
+    color: #000;
+    font-weight: 800;
+}
+
+.stat-group span {
+    font-size: 12px;
+    color: #666;
+}
+
+.btn-kelola {
+    width: 100%;
+    padding: 8px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-kelola:hover {
+    border-color: #0046FF;
+    color: #0046FF;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    .dashboard-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+    .dash-campaign-card {
+        flex-direction: column;
+    }
+    .card-img-wrapper {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+.profile-header h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #173059;
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    color: #173059;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Avatar Section */
+.avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.avatar-wrapper {
+    text-align: center;
+}
+
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #173059; /* Border gelap sesuai gambar */
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-circle svg {
+    color: #173059;
+}
+
+.avatar-label {
+    font-size: 14px;
+    color: #173059;
+    font-weight: 500;
+}
+
+.btn-ganti-foto {
+    padding: 8px 25px;
+    border: 2px solid #173059;
+    border-radius: 25px; /* Pill shape */
+    background: white;
+    color: #173059;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-ganti-foto:hover {
+    background-color: #173059;
+    color: white;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.text-red {
+    color: red;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #173059; /* Border gelap */
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 70, 255, 0.1);
+    border-color: #0046FF;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Grid for 2 Columns (Email & Username) */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Gender Radio Custom */
+.gender-group {
+    display: flex;
+    gap: 15px;
+}
+
+.gender-option input[type="radio"] {
+    display: none; /* Hide default radio */
+}
+
+.gender-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid #173059;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+    font-size: 14px;
+    transition: all 0.2s;
+    min-width: 100px;
+    justify-content: center;
+}
+
+/* Icon Gender */
+.gender-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* State Checked */
+.gender-option input[type="radio"]:checked + .gender-box {
+    background-color: #e6e6e6; /* Sedikit abu saat aktif agar terlihat terpilih */
+    font-weight: 700;
+    color: #173059;
+    border-width: 2px;
+}
+
+/* Button Simpan */
+.btn-simpan {
+    width: 100%;
+    padding: 15px;
+    background-color: #0046FF; /* Biru terang */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-simpan:hover {
+    background-color: #0033cc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-row-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Mengatur padding kanan input agar teks tidak menabrak ikon mata */
+.form-input.password-field {
+    padding-right: 45px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    padding: 0;
+}
+
+.password-toggle-btn:hover {
+    color: #173059;
+}
+
+.password-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Overlay: Layar hitam transparan di belakang */
+.logout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Hitam transparan */
+    z-index: 9999; /* Pastikan di paling depan */
+    display: none; /* Sembunyi secara default */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logout-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Modal Box: Kotak Putih */
+.logout-modal {
+    background-color: white;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px; /* Sudut tumpul */
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.logout-overlay.show .logout-modal {
+    transform: translateY(0);
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #173059;
+    margin-bottom: 12px;
+}
+
+.modal-message {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+/* Tombol Teks Polos (Sesuai Gambar) */
+.btn-modal-action {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0046FF; /* Biru */
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    transition: color 0.2s;
+}
+
+.btn-modal-action:hover {
+    color: #0033cc;
+    background-color: rgba(0, 70, 255, 0.05);
+    border-radius: 4px;
+}
+
+/* Reset style khusus untuk tombol logout agar mirip link sidebar */
+.btn-logout-custom {
+    background: none;      /* Hilangkan background abu-abu tombol */
+    border: none;          /* Hilangkan garis border tombol */
+    width: 100%;           /* Lebar penuh */
+    text-align: left;      /* Teks rata kiri */
+    font-family: inherit;  /* Ikuti font website */
+    font-size: inherit;    /* Ikuti ukuran font sidebar */
+    cursor: pointer;       /* Ubah kursor jadi telunjuk saat di-hover */
+}
+
+/* Pastikan efek hover tetap jalan (mengambil dari style .menu-item sebelumnya) */
+.btn-logout-custom:hover {
+    background-color: #FFF0F0; /* Warna pink kemerahan saat hover */
+}
+
+.logout-overlay.show {
+    display: flex !important;
+}
+
+.logout-modal {
+    background: white; width: 400px; padding: 25px;
+    border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: left;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #173059;
+    margin-bottom: 10px;
+}
+
+.modal-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.btn-modal {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-modal.no {
+    color: #0046FF;
+}
+
+.btn-modal.yes {
+    color: #0046FF;
+}
+
+.btn-modal:hover {
+    opacity: 0.7;
 }
