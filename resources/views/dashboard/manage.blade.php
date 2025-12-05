@@ -2,431 +2,284 @@
 
 @section('title', 'Kelola Campaign - ' . $campaign->title)
 
-@push('styles')
-<style>
-    /* --- RESET & BASE STYLES --- */
-    body {
-        background-color: #fff;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: #000;
-    }
-
-    /* --- 1. BAGIAN ATAS: TABS KISAH & BERITA --- */
-    .top-tabs-container {
-        display: flex;
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    .top-tab {
-        width: 50%;
-        text-align: center;
-        padding: 12px 0;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        border: 1px solid #000;
-    }
-
-    .top-tab.active {
-        background-color: #fff;
-        color: #000;
-        border-bottom: 1px solid #fff;
-        font-weight: 600;
-        position: relative;
-        z-index: 10;
-        top: 1px;
-    }
-
-    .top-tab.inactive {
-        background-color: #d1d5db;
-        color: #333;
-        border-left: none;
-    }
-
-    .story-container {
-        border: 1px solid #000;
-        padding: 25px;
-        background: #fff;
-        min-height: 150px;
-        position: relative;
-        z-index: 5;
-    }
-
-    .story-title {
-        font-weight: 800;
-        font-size: 16px;
-        margin-bottom: 10px;
-        color: #000;
-    }
-
-    .story-text {
-        font-size: 13px;
-        line-height: 1.5;
-        text-align: justify;
-        color: #333;
-    }
-
-    /* --- 2. BAGIAN BAWAH: DONATUR LIST --- */
-    .section-header {
-        color: #0d6efd;
-        font-size: 18px;
-        font-weight: 500;
-        margin-top: 40px;
-        margin-bottom: 15px;
-    }
-
-    .donor-wrapper {
-        border: 1px solid #999;
-        border-radius: 2px;
-        overflow: hidden;
-    }
-
-    .donor-nav {
-        display: flex;
-        background: #fff;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .donor-nav-item {
-        flex: 1;
-        text-align: center;
-        padding: 15px 0;
-        font-size: 14px;
-        color: #555;
-        cursor: pointer;
-        position: relative;
-        font-weight: 500;
-    }
-
-    .donor-nav-item.active {
-        color: #0d6efd;
-        font-weight: 700;
-    }
-
-    .donor-nav-item.active::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background-color: #0d6efd;
-    }
-
-    .donor-list-background {
-        background-color: #e3ecfa;
-        padding: 10px 0;
-        min-height: 200px;
-    }
-
-    /* Styles untuk Row Donatur */
-    .donor-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 15px 25px;
-    }
-
-    .row-left {
-        display: flex;
-        gap: 15px;
-    }
-
-    .icon-avatar {
-        font-size: 34px;
-        color: #111827;
-        margin-top: -5px;
-    }
-
-    .info-box {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .info-name {
-        font-weight: 800;
-        font-size: 14px;
-        color: #142850;
-    }
-
-    .info-detail {
-        font-size: 13px;
-        color: #142850;
-        margin-top: 2px;
-    }
-
-    .row-right {
-        text-align: left;
-        min-width: 220px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    /* Checkbox & Status Styles */
-    .checkbox-label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        margin-bottom: 3px;
-    }
-
-    .hidden-cb { display: none; }
-
-    .custom-cb-box {
-        width: 20px;
-        height: 20px;
-        border: 2px solid #0d6efd;
-        border-radius: 4px;
-        background-color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.2s;
-    }
-
-    .hidden-cb:checked + .custom-cb-box {
-        background-color: #0d6efd;
-    }
-
-    .hidden-cb:checked + .custom-cb-box::after {
-        content: '✓';
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .cb-text {
-        font-size: 13px;
-        color: #142850;
-    }
-
-    .status-msg {
-        font-size: 12px;
-        margin-left: 30px;
-        font-style: italic;
-        color: #142850;
-    }
-
-    .status-msg.received {
-        color: #142850;
-        font-style: normal;
-    }
-
-    .status-simple {
-        font-size: 13px;
-        font-weight: 600;
-        color: #142850;
-    }
-
-</style>
-@endpush
-
 @section('content')
-<div class="container my-5" style="max-width: 850px;">
+<div class="manage-wrapper">
 
-    <div style="font-size: 12px; font-weight: 700; margin-bottom: 25px;">
-        <a href="{{ route('home') }}" style="text-decoration: none; color: #000;">Home</a>
-        <span style="margin: 0 5px;">></span>
-        <a href="{{ route('dashboard.index') }}" style="text-decoration: none; color: #000;">Dashboard</a>
-        <span style="margin: 0 5px;">></span>
-        <span style="color: #555;">Kelola Campaign</span>
+    <div class="manage-breadcrumb">
+        <a href="{{ route('home') }}">Home</a>
+        <span>&gt;</span>
+        <a href="{{ route('dashboard.index') }}">Dashboard</a>
+        <span>&gt;</span>
+        Kelola Campaign
     </div>
 
-    <h1 style="color: #142850; font-weight: 800; font-size: 24px; margin-bottom: 10px;">Kelola Campaign: {{ $campaign->title }}</h1>
+    <h1 class="manage-title">Kelola Campaign: {{ $campaign->title }}</h1>
 
-    <div style="font-size: 13px; font-weight: 500; color: #333;">
-        <div>
-            Status : <a href="#" style="color: #4A90E2; text-decoration: underline; font-weight: 600;">{{ ucfirst($campaign->status) }}</a>
-        </div>
-        <div style="margin-top: 2px;">
-            Sisa Waktu : <strong>{{ max(0, ceil($campaign->getDaysLeft())) }} Hari</strong>
-        </div>
+    <div class="manage-meta">
+        Status : <a href="#">{{ ucfirst($campaign->status) }}</a>
+        <br>
+        Sisa Waktu : {{ max(0, ceil($campaign->getDaysLeft())) }} Hari
     </div>
-
-    <br>
 
     @if($campaign->image)
-        <img src="{{ asset('storage/' . $campaign->image) }}"
-            style="width: 100%; height: 250px; object-fit: contain; background-color: #f0f0f0;"
-            alt="Campaign">
+        <img src="{{ asset('storage/' . $campaign->image) }}" class="manage-image-real" alt="Campaign Image">
     @else
-        <div style="background-color: #d9d9d9; width: 100%; height: 250px;"></div>
+        <div class="manage-image-placeholder"></div>
     @endif
 
-    <div class="top-tabs-container">
-        <div class="top-tab active" id="tab-kisah" onclick="openTopTab('kisah')">Kisah</div>
-        <div class="top-tab inactive" id="tab-berita" onclick="openTopTab('berita')">Berita ({{ $campaign->updates->count() }})</div>
+    <div class="top-tabs">
+        <div class="top-tab-item active" id="tab-btn-kisah" onclick="switchTopTab('kisah')">Kisah</div>
+        <div class="top-tab-item" id="tab-btn-berita" onclick="switchTopTab('berita')">Berita ({{ $campaign->updates->count() }})</div>
     </div>
 
-    <div class="story-container">
+    <div class="tab-content-box">
         <div id="content-kisah">
-            <h3 class="story-title">Judul Kampanye</h3>
-            <div class="story-text">
+            <h3 class="story-heading">{{ $campaign->title }}</h3>
+            <div style="font-size: 14px; line-height: 1.6; color: #333; text-align: justify;">
                 {{ $campaign->description }}
             </div>
         </div>
 
         <div id="content-berita" style="display: none;">
             @forelse($campaign->updates as $update)
-                <div class="mb-3 border-bottom pb-2">
-                    <strong>{{ $update->title }}</strong> <br>
-                    <small class="text-muted">{{ $update->created_at->format('d M Y') }}</small>
-                    <p class="story-text mt-2">{{ $update->content }}</p>
+                <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <strong style="color: #173059;">{{ $update->title }}</strong>
+                    <div style="font-size: 12px; color: #888; margin-bottom: 8px;">{{ $update->created_at->format('d M Y') }}</div>
+                    <p style="font-size: 14px; margin: 0;">{{ $update->content }}</p>
                 </div>
             @empty
-                <p class="text-center text-muted mt-3">Belum ada berita terbaru.</p>
+                <p style="color: #999; text-align: center;">Belum ada berita terbaru.</p>
             @endforelse
         </div>
     </div>
 
+    <h3 class="donatur-section-title">Lihat Detail Donatur</h3>
 
-    <h3 class="section-header">Lihat Detail Donatur</h3>
-
-    <div class="donor-wrapper">
-        <div class="donor-nav">
-            <div class="donor-nav-item" id="nav-dana" onclick="openDonorTab('dana')">Donatur Dana</div>
-            <div class="donor-nav-item active" id="nav-barang" onclick="openDonorTab('barang')">Donatur Barang</div>
-            <div class="donor-nav-item" id="nav-tenaga" onclick="openDonorTab('tenaga')">Donatur Tenaga</div>
+    <div class="donatur-wrapper">
+        <div class="donatur-tabs">
+            <div class="donatur-tab" id="nav-dana" onclick="switchDonaturTab('dana')">Donatur Dana</div>
+            <div class="donatur-tab active" id="nav-barang" onclick="switchDonaturTab('barang')">Donatur Barang</div>
+            <div class="donatur-tab" id="nav-tenaga" onclick="switchDonaturTab('tenaga')">Donatur Tenaga</div>
         </div>
 
-        <div class="donor-list-background">
+        <div class="donatur-list-area">
+
+            <div id="list-dana" style="display: none;">
+                @forelse($campaign->moneyDonations as $donation)
+                <div class="donatur-item">
+                    <div class="donatur-left">
+                        <div class="donatur-avatar">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="donatur-info">
+                            <h5>{{ $donation->is_anonymous ? 'Anonim' : $donation->user->name }}</h5>
+                            <p>Rp {{ number_format($donation->amount, 0, ',', '.') }} &bull; {{ $donation->created_at->format('d M Y') }}</p>
+                        </div>
+                    </div>
+                    <div class="donatur-right">
+                        <img src="{{ asset('images/payment-method.png') }}" alt="Volunteer Jejakkebaikan">
+                    </div>
+                </div>
+                @empty
+                <div style="text-align: center; padding: 20px; color: #666;">Belum ada donasi dana.</div>
+                @endforelse
+            </div>
 
             <div id="list-barang">
                 @forelse($campaign->goodsDonations as $donation)
-                <div class="donor-row">
-                    <div class="row-left">
-                        <i class="bi bi-person-circle icon-avatar"></i>
-                        <div class="info-box">
-                            <span class="info-name">{{ $donation->user->name }}</span>
-                            <span class="info-detail">Barang : {{ $donation->item_name }} &nbsp;•&nbsp; {{ $donation->quantity }} buah</span>
+                <div class="donatur-item">
+                    <div class="donatur-left">
+                        <div class="donatur-avatar">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="donatur-info">
+                            <h5>{{ $donation->user->name }}</h5>
+                            <p>Barang : {{ $donation->item_name }} &bull; {{ $donation->quantity }} buah</p>
                         </div>
                     </div>
-                    <div class="row-right">
-                        <form action="{{ route('donations.goods.received', $donation->id) }}" method="POST" id="form-goods-{{ $donation->id }}">
+                    <div class="donatur-right">
+                        <form action="{{ route('donations.goods.received', $donation->id) }}" method="POST" id="form-barang-{{ $donation->id }}" data-current-status="{{ $donation->status }}">
                             @csrf
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="hidden-cb"
-                                       {{ $donation->status === 'received' ? 'checked' : '' }}
-                                       {{ $donation->status === 'received' ? 'disabled' : '' }}
-                                       onchange="if(confirm('Konfirmasi barang diterima?')) document.getElementById('form-goods-{{ $donation->id }}').submit();">
-                                <span class="custom-cb-box"></span>
-                                <span class="cb-text">Tandai Sudah Diterima</span>
+                            <input type="hidden" name="status" id="status-input-{{ $donation->id }}" value="">
+
+                            <label class="check-wrapper">
+                                <input type="checkbox" class="real-checkbox" style="display:none;"
+                                    {{ $donation->status === 'received' ? 'checked' : '' }}
+                                    onclick="openGoodsModal(event, {{ $donation->id }})">
+
+                                <div class="check-box-custom"></div>
+                                <span class="check-label">Tandai Sudah Diterima</span>
                             </label>
                         </form>
 
                         @if($donation->status === 'received')
-                            <div class="status-msg received">* Sudah Diterima</div>
+                            <div class="status-note done">* Sudah Diterima</div>
                         @else
-                            <div class="status-msg">* Menunggu Diterima</div>
+                            <div class="status-note">* Menunggu Diterima</div>
                         @endif
                     </div>
                 </div>
                 @empty
-                    <div class="text-center py-4 text-muted" style="font-size: 13px;">Belum ada donasi barang.</div>
-                @endforelse
-            </div>
-
-            <div id="list-dana" style="display: none;">
-                @forelse($campaign->moneyDonations as $donation)
-                <div class="donor-row">
-                    <div class="row-left">
-                        <i class="bi bi-person-circle icon-avatar"></i>
-                        <div class="info-box">
-                            <span class="info-name">{{ $donation->is_anonymous ? 'Anonim' : $donation->user->name }}</span>
-                            <span class="info-detail">Nominal : Rp {{ number_format($donation->amount, 0, ',', '.') }}</span>
-                        </div>
-                    </div>
-                    <div class="row-right">
-                        <img src="{{ asset('img/qris.png') }}" alt="QRIS" class="qris-logo" width="150px" height="100px">
-                    </div>
-                </div>
-                @empty
-                    <div class="text-center py-4 text-muted" style="font-size: 13px;">Belum ada donasi dana.</div>
+                    <div style="text-align: center; padding: 20px; color: #666;">Belum ada donasi barang.</div>
                 @endforelse
             </div>
 
             <div id="list-tenaga" style="display: none;">
                 @forelse($campaign->volunteerDonations as $donation)
-                <div class="donor-row">
-                    <div class="row-left">
-                        <i class="bi bi-person-circle icon-avatar"></i>
-                        <div class="info-box">
-                            <span class="info-name">{{ $donation->user->name }} - {{$donation->user->phone}}</span>
-                            <span class="info-detail">Posisi : {{ $donation->position }}</span>
-                            @if($donation->message)
-                                <small style="font-size: 11px; color: #666; font-style: italic;">"{{ $donation->message }}"</small>
-                            @endif
+                <div class="donatur-item">
+                    <div class="donatur-left">
+                        <div class="donatur-avatar">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="donatur-info">
+                            <h5>{{ $donation->user->name }} <span style="font-weight: 400; font-size: 12px; color: #777; margin-left: 5px;">{{ $donation->user->email }}</span></h5>
+                            <p>Posisi : {{ $donation->position }} &bull; {{ $donation->created_at->format('d M Y') }}</p>
                         </div>
                     </div>
-                    <div class="row-right">
-                        @if($donation->status === 'pending')
-                            <div class="d-flex gap-2">
-                                <form action="{{ route('donations.volunteer.approve', $donation->id) }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-sm btn-primary" style="font-size: 11px;">Terima</button>
-                                </form>
-                                <form action="{{ route('donations.volunteer.reject', $donation->id) }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-sm btn-danger" style="font-size: 11px;">Tolak</button>
-                                </form>
+                    <div class="donatur-right">
+                        @if($donation->status === 'approved')
+                            <div style="color: white; font-size: 20px;">✓</div>
+                        @elseif($donation->status === 'pending')
+                            <div style="display: flex; gap: 5px; justify-content: flex-end;">
+                                <form action="{{ route('donations.volunteer.approve', $donation->id) }}" method="POST">@csrf <button class="btn btn-sm btn-primary" style="font-size: 10px; padding: 2px 8px;">Terima</button></form>
+                                <form action="{{ route('donations.volunteer.reject', $donation->id) }}" method="POST">@csrf <button class="btn btn-sm btn-danger" style="font-size: 10px; padding: 2px 8px;">Tolak</button></form>
                             </div>
-                            <div class="status-msg" style="margin-left: 0; margin-top: 4px;">* Menunggu Persetujuan</div>
-                        @elseif($donation->status === 'approved')
-                             <span class="status-simple text-primary">
-                                <i class="bi bi-check-circle-fill"></i> Disetujui
-                            </span>
                         @else
-                             <span class="status-simple text-danger">
-                                <i class="bi bi-x-circle-fill"></i> Ditolak
-                            </span>
+                            <span style="font-size: 12px; color: red;">Ditolak</span>
                         @endif
                     </div>
                 </div>
                 @empty
-                    <div class="text-center py-4 text-muted" style="font-size: 13px;">Belum ada relawan mendaftar.</div>
+                    <div style="text-align: center; padding: 20px; color: #666;">Belum ada relawan.</div>
                 @endforelse
             </div>
-
         </div>
     </div>
-
 </div>
-@endsection
 
-@push('scripts')
+<div id="goodsModalOverlay" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-title">Konfirmasi Status Barang</div>
+        <div class="modal-text">Apakah barang ini sudah diterima dari donatur?</div>
+
+        <div class="modal-buttons">
+            <button type="button" class="btn-modal-choice btn-belum" onclick="submitGoodsStatus('pending')">BELUM</button>
+
+            <button type="button" class="btn-modal-choice btn-sudah" onclick="submitGoodsStatus('received')">SUDAH</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    // Script Toggle Tab Atas
-    function openTopTab(tabName) {
-        document.getElementById('tab-kisah').classList.remove('active');
-        document.getElementById('tab-kisah').classList.add('inactive');
-        document.getElementById('tab-berita').classList.remove('active');
-        document.getElementById('tab-berita').classList.add('inactive');
+    // Variabel ID Donasi yang sedang aktif
+    let selectedDonationId = null;
 
-        document.getElementById('tab-' + tabName).classList.add('active');
-        document.getElementById('tab-' + tabName).classList.remove('inactive');
+    // 1. Fungsi Buka Modal
+    function openGoodsModal(event, id) {
+        // Stop checkbox berubah visualnya dulu (tunggu konfirmasi)
+        event.preventDefault();
 
-        document.getElementById('content-kisah').style.display = (tabName === 'kisah') ? 'block' : 'none';
-        document.getElementById('content-berita').style.display = (tabName === 'berita') ? 'block' : 'none';
+        selectedDonationId = id;
+
+        // Get current status of the donation
+        const form = document.getElementById('form-barang-' + id);
+        const currentStatus = form.getAttribute('data-current-status');
+
+        // Set button states based on current status
+        const belumBtn = document.querySelector('[onclick="submitGoodsStatus(\'pending\')"]');
+        const sudahBtn = document.querySelector('[onclick="submitGoodsStatus(\'received\')"]');
+
+        if (currentStatus === 'pending') {
+            belumBtn.disabled = true;
+            belumBtn.style.opacity = '0.5';
+            belumBtn.style.cursor = 'not-allowed';
+            sudahBtn.disabled = false;
+            sudahBtn.style.opacity = '1';
+            sudahBtn.style.cursor = 'pointer';
+        } else if (currentStatus === 'received') {
+            sudahBtn.disabled = true;
+            sudahBtn.style.opacity = '0.5';
+            sudahBtn.style.cursor = 'not-allowed';
+            belumBtn.disabled = false;
+            belumBtn.style.opacity = '1';
+            belumBtn.style.cursor = 'pointer';
+        } else {
+            // Enable both if status is neither pending nor received
+            belumBtn.disabled = false;
+            belumBtn.style.opacity = '1';
+            belumBtn.style.cursor = 'pointer';
+            sudahBtn.disabled = false;
+            sudahBtn.style.opacity = '1';
+            sudahBtn.style.cursor = 'pointer';
+        }
+
+        document.getElementById('goodsModalOverlay').classList.add('show');
     }
 
-    // Script Toggle Tab Bawah
-    function openDonorTab(type) {
-        // Reset Active Nav
-        document.getElementById('nav-dana').classList.remove('active');
-        document.getElementById('nav-barang').classList.remove('active');
-        document.getElementById('nav-tenaga').classList.remove('active');
+    // 2. Fungsi Submit Status (Dipanggil tombol Modal)
+    function submitGoodsStatus(status) {
+        if (selectedDonationId) {
+            // Isi input hidden 'status' di dalam form yang sesuai
+            const statusInput = document.getElementById('status-input-' + selectedDonationId);
+            statusInput.value = status;
 
-        // Hide Lists
+            // Submit Form
+            document.getElementById('form-barang-' + selectedDonationId).submit();
+        }
+
+        // Close modal after submission
+        document.getElementById('goodsModalOverlay').classList.remove('show');
+
+        // Disable button if status is pending
+        if (status === "pending") {
+            const belumBtn = document.querySelector('[onclick="submitGoodsStatus(\'pending\')"]');
+            belumBtn.disabled = true;
+            belumBtn.style.opacity = '0.5';
+            belumBtn.style.cursor = 'not-allowed';
+            const sudahBtn = document.querySelector('[onclick="submitGoodsStatus(\'received\')"]');
+            sudahBtn.disabled = false;
+            sudahBtn.style.opacity = '1';
+            sudahBtn.style.cursor = 'pointer';
+        }
+
+        // Disable button if status is received
+        if (status === "received") {
+            const sudahBtn = document.querySelector('[onclick="submitGoodsStatus(\'received\')"]');
+            sudahBtn.disabled = true;
+            sudahBtn.style.opacity = '0.5';
+            sudahBtn.style.cursor = 'not-allowed';
+            const belumBtn = document.querySelector('[onclick="submitGoodsStatus(\'pending\')"]');
+            belumBtn.disabled = false;
+            belumBtn.style.opacity = '1';
+            belumBtn.style.cursor = 'pointer';
+        }
+    }
+
+    // 3. Tutup Modal jika klik luar
+    window.onclick = function(event) {
+        const modal = document.getElementById('goodsModalOverlay');
+        if (event.target == modal) {
+            modal.classList.remove('show');
+            selectedDonationId = null;
+        }
+    }
+
+    // Tab Logic
+    function switchTopTab(tab) {
+        document.querySelectorAll('.top-tab-item').forEach(el => el.classList.remove('active'));
+        document.getElementById('content-kisah').style.display = 'none';
+        document.getElementById('content-berita').style.display = 'none';
+        document.getElementById('tab-btn-' + tab).classList.add('active');
+        document.getElementById('content-' + tab).style.display = 'block';
+    }
+
+    function switchDonaturTab(type) {
+        document.querySelectorAll('.donatur-tab').forEach(el => el.classList.remove('active'));
         document.getElementById('list-dana').style.display = 'none';
         document.getElementById('list-barang').style.display = 'none';
         document.getElementById('list-tenaga').style.display = 'none';
-
-        // Set Active
         document.getElementById('nav-' + type).classList.add('active');
         document.getElementById('list-' + type).style.display = 'block';
     }
 </script>
-@endpush
+@endsection

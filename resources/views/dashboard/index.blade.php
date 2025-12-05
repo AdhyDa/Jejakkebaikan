@@ -63,11 +63,11 @@
             </a>
         </div>
 
-        <h3 class="section-title">Daftar Campaign Saya</h3>
+        <h3 class="section-title">Daftar Semua Campaign</h3>
 
         @if($campaigns->isEmpty())
             <div class="alert alert-info text-center">
-                <p>Anda belum memiliki campaign. Mulai buat campaign pertama Anda!</p>
+                <p>Belum ada campaign yang tersedia.</p>
             </div>
         @else
             <div class="campaign-list">
@@ -112,7 +112,7 @@
                                     <span>Terkumpul</span>
                                 </div>
                                 <div class="stat-group text-right">
-                                    <strong>{{ max(0, $campaign->getDaysLeft()) }}</strong>
+                                    <strong>{{ (int) max(0, $campaign->getDaysLeft()) }}</strong>
                                     <span>Hari Lagi</span>
                                 </div>
                             </div>

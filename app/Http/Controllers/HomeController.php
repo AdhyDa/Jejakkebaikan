@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Campaign;
 
 class HomeController extends Controller
 {
@@ -14,122 +15,38 @@ class HomeController extends Controller
         $organisasi = $request->input('organisasi', []);
         $search       = trim($request->input('search', ''));
 
-        $allCampaigns = [
-            [
-                'id' => 1,
-                'title' => 'Bantu Pendidikan Anak Dhuafa',
-                'organization' => 'Jejakkebaikan',
-                'organization_logo' => 'org-logo.png',
-                'verified' => true,
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+        $campaignsFromDB = Campaign::where('status', 'active')->get();
+
+        $allCampaigns = $campaignsFromDB->map(function($campaign) {
+            $days_remaining = now()->diffInDays($campaign->end_date, false);
+            $organization_logos = [
+                'Jejakkebaikan' => 'org-logo.png',
+                'Yayasan Peduli Kasih' => 'org-logo-2.png',
+                'Yayasan Hijau Indonesia' => 'org-logo-4.png',
+                'Yayasan Cerdas Bangsa' => 'org-logo-6.png',
+            ];
+            $organization_logo = $organization_logos[$campaign->organization_name] ?? 'org-logo.png';
+
+            return [
+                'id' => $campaign->id,
+                'title' => $campaign->title,
+                'organization' => $campaign->organization_name,
+                'organization_logo' => $organization_logo,
+                'verified' => $campaign->organization_name === 'Jejakkebaikan',
+                'description' => $campaign->description,
                 'link' => 'Lihat Selengkapnya',
-                'image' => 'campaign-1.jpg',
-                'target_amount' => 1900000,
-                'collected_amount' => 950000,
-                'target' => 'Rp 1.900.000',
-                'collected' => 'Rp 950.000',
-                'days_remaining' => 10,
-                'days' => '10',
-                'days_label' => 'Hari lagi',
-                'category' => 'Pendidikan',
-                'created_at' => '2025-01-15'
-            ],
-            [
-                'id' => 2,
-                'title' => 'Donasi Untuk Korban Bencana',
-                'organization' => 'Yayasan Peduli Kasih',
-                'organization_logo' => 'org-logo-2.png',
-                'verified' => false,
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-                'link' => 'Lihat Selengkapnya',
-                'image' => 'campaign-2.jpg',
-                'target_amount' => 2500000,
-                'collected_amount' => 2300000,
-                'target' => 'Rp 2.500.000',
-                'collected' => 'Rp 2.300.000',
-                'days_remaining' => 3,
-                'days' => '3',
-                'days_label' => 'Hari lagi',
-                'category' => 'Bencana Alam',
-                'created_at' => '2025-01-20'
-            ],
-            [
-                'id' => 3,
-                'title' => 'Bantuan Kemanusiaan Gaza',
-                'organization' => 'Jejakkebaikan',
-                'organization_logo' => 'org-logo.png',
-                'verified' => true,
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-                'link' => 'Lihat Selengkapnya',
-                'image' => 'campaign-3.jpg',
-                'target_amount' => 5000000,
-                'collected_amount' => 1200000,
-                'target' => 'Rp 5.000.000',
-                'collected' => 'Rp 1.200.000',
-                'days_remaining' => 0,
-                'days' => '0',
-                'days_label' => 'Selesai',
-                'category' => 'Kemanusiaan',
-                'created_at' => '2024-12-01'
-            ],
-            [
-                'id' => 4,
-                'title' => 'Penanaman 1000 Pohon',
-                'organization' => 'Yayasan Hijau Indonesia',
-                'organization_logo' => 'org-logo-4.png',
-                'verified' => false,
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-                'link' => 'Lihat Selengkapnya',
-                'image' => 'campaign-4.jpg',
-                'target_amount' => 3000000,
-                'collected_amount' => 2800000,
-                'target' => 'Rp 3.000.000',
-                'collected' => 'Rp 2.800.000',
-                'days_remaining' => 15,
-                'days' => '15',
-                'days_label' => 'Hari lagi',
-                'category' => 'Lingkungan',
-                'created_at' => '2025-01-10'
-            ],
-            [
-                'id' => 5,
-                'title' => 'Renovasi Panti Asuhan',
-                'organization' => 'Jejakkebaikan',
-                'organization_logo' => 'org-logo.png',
-                'verified' => true,
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-                'link' => 'Lihat Selengkapnya',
-                'image' => 'campaign-1.jpg',
-                'target_amount' => 10000000,
-                'collected_amount' => 9500000,
-                'target' => 'Rp 10.000.000',
-                'collected' => 'Rp 9.500.000',
-                'days_remaining' => 7,
-                'days' => '7',
-                'days_label' => 'Hari lagi',
-                'category' => 'Panti Asuhan',
-                'created_at' => '2025-01-05'
-            ],
-            [
-                'id' => 6,
-                'title' => 'Beasiswa Anak Berprestasi',
-                'organization' => 'Yayasan Cerdas Bangsa',
-                'organization_logo' => 'org-logo-6.png',
-                'verified' => false,
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
-                'link' => 'Lihat Selengkapnya',
-                'image' => 'campaign-2.jpg',
-                'target_amount' => 8000000,
-                'collected_amount' => 2000000,
-                'target' => 'Rp 8.000.000',
-                'collected' => 'Rp 2.000.000',
-                'days_remaining' => 2,
-                'days' => '2',
-                'days_label' => 'Hari lagi',
-                'category' => 'Pendidikan',
-                'created_at' => '2025-01-22'
-            ],
-        ];
+                'image' => $campaign->image,
+                'target_amount' => $campaign->target_amount,
+                'collected_amount' => $campaign->collected_amount,
+                'target' => 'Rp ' . number_format((float)$campaign->target_amount),
+                'collected' => 'Rp ' . number_format((float)$campaign->collected_amount),
+                'days_remaining' => $days_remaining,
+                'days' => abs($days_remaining),
+                'days_label' => $days_remaining > 0 ? 'Hari lagi' : 'Selesai',
+                'category' => $campaign->category,
+                'created_at' => $campaign->created_at->format('Y-m-d'),
+            ];
+        })->toArray();
 
         $campaigns = collect($allCampaigns);
 
@@ -222,7 +139,7 @@ class HomeController extends Controller
     {
         return view('faq');
     }
-    
+
     public function login()
     {
         return view('login');

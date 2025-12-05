@@ -48,13 +48,13 @@ class DatabaseSeeder extends Seeder
         // Create campaigns
         $campaign1 = Campaign::create([
             'user_id' => $user1->id,
-            'title' => 'Bantu Bapak Yanto Melawan Kanker',
-            'description' => 'Bapak Yanto, seorang ayah dari 3 anak, sedang berjuang melawan kanker stadium 3. Keluarga ini membutuhkan bantuan untuk biaya pengobatan dan operasi. Setiap donasi Anda akan sangat berarti untuk kesembuhan Bapak Yanto dan masa depan anak-anaknya.',
-            'image' => 'campaigns/default1.jpg',
-            'category' => 'Kemanusiaan',
-            'organization_name' => 'Yayasan Peduli Sesama',
-            'target_amount' => 100000000,
-            'collected_amount' => 1900000,
+            'title' => 'Bantu Pendidikan Anak Dhuafa',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+            'image' => 'campaign-1.jpg',
+            'category' => 'Pendidikan',
+            'organization_name' => 'Jejakkebaikan',
+            'target_amount' => 1900000,
+            'collected_amount' => 950000,
             'end_date' => now()->addDays(10),
             'need_money' => true,
             'need_goods' => true,
@@ -64,14 +64,14 @@ class DatabaseSeeder extends Seeder
 
         $campaign2 = Campaign::create([
             'user_id' => $user2->id,
-            'title' => 'Renovasi Panti Asuhan Kasih Ibu',
-            'description' => 'Panti Asuhan Kasih Ibu yang menampung 50 anak yatim piatu membutuhkan renovasi mendesak. Atap bocor dan dinding mulai rapuh mengancam keselamatan anak-anak. Mari bersama-sama membantu mereka mendapatkan tempat tinggal yang layak.',
-            'image' => 'campaigns/default2.jpg',
-            'category' => 'Panti Asuhan',
-            'organization_name' => 'Panti Asuhan Kasih Ibu',
-            'target_amount' => 50000000,
-            'collected_amount' => 15000000,
-            'end_date' => now()->addDays(15),
+            'title' => 'Donasi Untuk Korban Bencana',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+            'image' => 'campaign-2.jpg',
+            'category' => 'Bencana Alam',
+            'organization_name' => 'Yayasan Peduli Kasih',
+            'target_amount' => 2500000,
+            'collected_amount' => 2300000,
+            'end_date' => now()->addDays(3),
             'need_money' => true,
             'need_goods' => true,
             'need_volunteer' => true,
@@ -80,14 +80,14 @@ class DatabaseSeeder extends Seeder
 
         $campaign3 = Campaign::create([
             'user_id' => $user1->id,
-            'title' => 'Bantuan Korban Banjir Bandung',
-            'description' => 'Banjir bandang melanda kawasan Bandung Selatan dan mengakibatkan ratusan keluarga kehilangan tempat tinggal. Mereka membutuhkan bantuan darurat berupa makanan, pakaian, dan tempat berteduh. Setiap bantuan Anda akan disalurkan langsung kepada korban.',
-            'image' => 'campaigns/default3.jpg',
-            'category' => 'Bencana Alam',
-            'organization_name' => 'Relawan Bencana Indonesia',
-            'target_amount' => 200000000,
-            'collected_amount' => 85000000,
-            'end_date' => now()->addDays(5),
+            'title' => 'Bantuan Kemanusiaan Gaza',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+            'image' => 'campaign-3.jpg',
+            'category' => 'Kemanusiaan',
+            'organization_name' => 'Jejakkebaikan',
+            'target_amount' => 5000000,
+            'collected_amount' => 1200000,
+            'end_date' => now()->addDays(0),
             'need_money' => true,
             'need_goods' => true,
             'need_volunteer' => true,
@@ -95,147 +95,51 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $campaign4 = Campaign::create([
-            'user_id' => $user3->id,
-            'title' => 'Program Beasiswa Anak Kurang Mampu',
-            'description' => 'Program beasiswa untuk 100 anak kurang mampu agar dapat melanjutkan pendidikan ke jenjang SMA. Pendidikan adalah hak setiap anak, mari bantu mereka meraih mimpi melalui pendidikan yang layak.',
-            'image' => 'campaigns/default4.jpg',
-            'category' => 'Pendidikan',
-            'organization_name' => 'Yayasan Pendidikan Untuk Semua',
-            'target_amount' => 150000000,
-            'collected_amount' => 45000000,
-            'end_date' => now()->addDays(20),
-            'need_money' => true,
-            'need_goods' => false,
-            'need_volunteer' => true,
-            'status' => 'active',
-        ]);
-
-        $campaign5 = Campaign::create([
             'user_id' => $user2->id,
-            'title' => 'Penghijauan Kawasan Gunung Merapi',
-            'description' => 'Program penanaman 10.000 pohon di kawasan Gunung Merapi untuk mencegah erosi dan menjaga kelestarian alam. Mari bersama-sama menjaga bumi kita untuk generasi mendatang.',
-            'image' => 'campaigns/default5.jpg',
+            'title' => 'Penanaman 1000 Pohon',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+            'image' => 'campaign-4.jpg',
             'category' => 'Lingkungan',
-            'organization_name' => 'Jejakkebaikan',
-            'target_amount' => 30000000,
-            'collected_amount' => 12000000,
-            'end_date' => now()->addDays(25),
+            'organization_name' => 'Yayasan Hijau Indonesia',
+            'target_amount' => 3000000,
+            'collected_amount' => 2800000,
+            'end_date' => now()->addDays(15),
             'need_money' => true,
             'need_goods' => true,
             'need_volunteer' => true,
             'status' => 'active',
         ]);
 
-        // Create some donations for campaign 1
-        MoneyDonation::create([
-            'user_id' => $user2->id,
-            'campaign_id' => $campaign1->id,
-            'amount' => 500000,
-            'message' => 'Semoga cepat sembuh Pak Yanto',
-            'is_anonymous' => false,
-        ]);
-
-        MoneyDonation::create([
-            'user_id' => $user3->id,
-            'campaign_id' => $campaign1->id,
-            'amount' => 200000,
-            'message' => null,
-            'is_anonymous' => true,
-        ]);
-
-        MoneyDonation::create([
-            'user_id' => $user2->id,
-            'campaign_id' => $campaign1->id,
-            'amount' => 1000000,
-            'message' => 'Semangat untuk keluarga Pak Yanto',
-            'is_anonymous' => false,
-        ]);
-
-        GoodsDonation::create([
-            'user_id' => $user2->id,
-            'campaign_id' => $campaign1->id,
-            'item_name' => 'Kursi Roda',
-            'quantity' => 1,
-            'description' => 'Kursi roda bekas kondisi masih bagus',
-            'status' => 'received',
-        ]);
-
-        GoodsDonation::create([
-            'user_id' => $user3->id,
-            'campaign_id' => $campaign1->id,
-            'item_name' => 'Selimut',
-            'quantity' => 5,
-            'description' => 'Selimut tebal untuk pasien',
-            'status' => 'pending',
-        ]);
-
-        VolunteerDonation::create([
-            'user_id' => $user3->id,
-            'campaign_id' => $campaign1->id,
-            'position' => 'Pengasuh Pasien',
-            'message' => 'Saya bersedia membantu merawat Pak Yanto',
-            'status' => 'approved',
-        ]);
-
-        // Create donations for campaign 2
-        MoneyDonation::create([
+        $campaign5 = Campaign::create([
             'user_id' => $user1->id,
-            'campaign_id' => $campaign2->id,
-            'amount' => 5000000,
-            'message' => 'Untuk anak-anak panti',
-            'is_anonymous' => false,
+            'title' => 'Renovasi Panti Asuhan',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+            'image' => 'campaign-5.jpg',
+            'category' => 'Panti Asuhan',
+            'organization_name' => 'Jejakkebaikan',
+            'target_amount' => 10000000,
+            'collected_amount' => 9500000,
+            'end_date' => now()->addDays(7),
+            'need_money' => true,
+            'need_goods' => true,
+            'need_volunteer' => true,
+            'status' => 'active',
         ]);
 
-        MoneyDonation::create([
+        $campaign6 = Campaign::create([
             'user_id' => $user3->id,
-            'campaign_id' => $campaign2->id,
-            'amount' => 2000000,
-            'message' => null,
-            'is_anonymous' => false,
-        ]);
-
-        GoodsDonation::create([
-            'user_id' => $user1->id,
-            'campaign_id' => $campaign2->id,
-            'item_name' => 'Semen',
-            'quantity' => 50,
-            'description' => '50 sak semen untuk renovasi',
-            'status' => 'pending',
-        ]);
-
-        VolunteerDonation::create([
-            'user_id' => $user1->id,
-            'campaign_id' => $campaign2->id,
-            'position' => 'Tukang Bangunan',
-            'message' => 'Saya berpengalaman 10 tahun sebagai tukang',
-            'status' => 'pending',
-        ]);
-
-        // Create donations for campaign 3
-        MoneyDonation::create([
-            'user_id' => $user2->id,
-            'campaign_id' => $campaign3->id,
-            'amount' => 10000000,
-            'message' => 'Untuk korban banjir',
-            'is_anonymous' => false,
-        ]);
-
-        GoodsDonation::create([
-            'user_id' => $user2->id,
-            'campaign_id' => $campaign3->id,
-            'item_name' => 'Pakaian Layak Pakai',
-            'quantity' => 100,
-            'description' => '100 set pakaian untuk korban',
-            'status' => 'received',
-        ]);
-
-        GoodsDonation::create([
-            'user_id' => $user3->id,
-            'campaign_id' => $campaign3->id,
-            'item_name' => 'Makanan Instan',
-            'quantity' => 200,
-            'description' => '200 paket mie instan',
-            'status' => 'pending',
+            'title' => 'Beasiswa Anak Berprestasi',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+            'image' => 'campaign-6.jpg',
+            'category' => 'Pendidikan',
+            'organization_name' => 'Yayasan Cerdas Bangsa',
+            'target_amount' => 8000000,
+            'collected_amount' => 2000000,
+            'end_date' => now()->addDays(2),
+            'need_money' => true,
+            'need_goods' => true,
+            'need_volunteer' => true,
+            'status' => 'active',
         ]);
 
         echo "Database seeded successfully!\n";

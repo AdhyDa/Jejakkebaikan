@@ -2060,3 +2060,330 @@ textarea.form-input {
 .btn-modal:hover {
     opacity: 0.7;
 }
+
+/* Layout Container (Tanpa Sidebar, Tengah) */
+.manage-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Header */
+.manage-breadcrumb {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+.manage-breadcrumb a {
+    text-decoration: none;
+    color: #333;
+}
+.manage-breadcrumb span {
+    color: #999;
+    margin: 0 5px;
+}
+
+.manage-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #173059; /* Biru Gelap */
+    margin-bottom: 5px;
+}
+
+.manage-meta {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+.manage-meta a {
+    color: #0D9AFF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Placeholder Image Box */
+.manage-image-placeholder {
+    width: 100%;
+    height: 300px;
+    background-color: #D9D9D9; /* Abu-abu polos sesuai gambar */
+    margin-bottom: 0; /* Nempel dengan tab bawahnya */
+}
+
+.manage-image-real {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Tabs: Kisah & Berita */
+.top-tabs {
+    display: flex;
+    width: 100%;
+}
+
+.top-tab-item {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #D9D9D9; /* Abu-abu (Inactive) */
+    color: #333;
+}
+
+.top-tab-item.active {
+    background-color: #fff; /* Putih (Active) */
+    color: #000;
+    border-bottom: 1px solid #fff; /* Agar menyatu dengan konten */
+    position: relative;
+    top: 1px; /* Tutupi border container */
+}
+
+.tab-content-box {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 30px;
+    margin-bottom: 40px;
+    min-height: 150px;
+}
+
+.story-heading {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+/* Section Header Donatur */
+.donatur-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #173059;
+    margin-bottom: 15px;
+}
+
+/* Donatur Tabs & List Wrapper */
+.donatur-wrapper {
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.donatur-tabs {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.donatur-tab {
+    flex: 1;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+}
+
+.donatur-tab.active {
+    color: #0046FF;
+    font-weight: 700;
+}
+
+.donatur-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #0046FF;
+}
+
+/* List Background Area */
+.donatur-list-area {
+    background-color: #E6F0FF; /* Biru muda background list */
+    padding: 10px 0;
+    min-height: 250px;
+}
+
+/* Row Item Donatur */
+.donatur-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center vertical */
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.donatur-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.donatur-avatar {
+    font-size: 40px;
+    color: #173059;
+    line-height: 1;
+}
+
+.donatur-info h5 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #173059;
+    margin: 0 0 4px 0;
+}
+
+.donatur-info p {
+    font-size: 13px;
+    color: #173059;
+    margin: 0;
+}
+
+.donatur-right {
+    text-align: right;
+}
+
+.donatur-right img{
+    display: flex;
+    text-align: right;
+    justify-content: right;
+    width: 70px;
+    height: 70px;
+}
+
+/* Checkbox Style untuk Barang */
+.check-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.check-box-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #0046FF;
+    border-radius: 3px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+}
+
+.real-checkbox:checked + .check-box-custom {
+    background: #0046FF;
+}
+
+.real-checkbox:checked + .check-box-custom::after {
+    content: '✓';
+}
+
+.check-label {
+    font-size: 13px;
+    color: #173059;
+}
+
+.status-note {
+    font-size: 12px;
+    font-style: italic;
+    color: #173059;
+    margin-top: 2px;
+    padding-left: 26px; /* align with text above */
+}
+
+.status-note.done {
+    font-style: normal;
+}
+
+/* Tenaga Checklist */
+.check-icon-only {
+    color: white; /* Icon Checkmark putih */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); z-index: 9999;
+    display: none; /* Default Hidden */
+    align-items: center; justify-content: center;
+}
+
+.modal-overlay.show {
+    display: flex !important;
+}
+
+.modal-box {
+    background: white;
+    width: 400px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: left;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px); opacity: 0;
+    }
+    to {
+        transform: translateY(0); opacity: 1;
+    }
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #173059;
+    margin-bottom: 10px;
+}
+
+.modal-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.btn-modal-choice {
+    padding: 8px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+}
+
+.btn-belum {
+    background-color: #b5b8bb;
+    color: #242424;
+}
+
+.btn-belum:hover {
+    background-color: #dbe0e5;
+}
+
+.btn-sudah {
+    background-color: #0046FF;
+    color: white;
+}
+
+.btn-sudah:hover {
+    background-color: #0033cc;
+}

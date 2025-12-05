@@ -15,9 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $campaigns = auth()->user()->campaigns()
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $campaigns = Campaign::orderBy('id', 'asc')->get();
 
         return view('dashboard.index', compact('campaigns'));
     }

@@ -84,9 +84,12 @@ class DonationController extends Controller
             abort(403);
         }
 
-        $donation->update(['status' => 'received']);
+        // Toggle status between 'received' and 'pending'
+        $newStatus = $donation->status === 'received' ? 'pending' : 'received';
+        $donation->update(['status' => $newStatus]);
 
-        return back()->with('success', 'Donasi barang ditandai sudah diterima!');
+        $message = $newStatus === 'received' ? 'Donasi barang ditandai sudah diterima!' : 'Donasi barang ditandai belum diterima!';
+        return back()->with('success', $message);
     }
 
     public function approveVolunteer($donationId)
