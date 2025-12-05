@@ -31,7 +31,8 @@ class DonationController extends Controller
         // Update campaign collected amount
         $campaign->increment('collected_amount', $validated['amount']);
 
-        return redirect()->route('campaigns.show', $campaignId)
+        $campaign = Campaign::findOrFail($campaignId);
+        return redirect()->route('campaigns.show', $campaign->slug)
             ->with('success', 'Terima kasih atas donasi Anda!');
     }
 
@@ -71,7 +72,8 @@ class DonationController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('campaigns.show', $campaignId)
+        $campaign = Campaign::findOrFail($campaignId);
+        return redirect()->route('campaigns.show', $campaign->slug)
             ->with('success', 'Pendaftaran relawan berhasil!');
     }
 

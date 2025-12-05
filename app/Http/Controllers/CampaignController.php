@@ -44,7 +44,7 @@ class CampaignController extends Controller
         return view('campaigns.index', compact('campaigns'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
         $campaign = Campaign::with([
             'user',
@@ -52,7 +52,7 @@ class CampaignController extends Controller
             'goodsDonations',
             'volunteerDonations',
             'updates'
-        ])->findOrFail($id);
+        ])->where('slug', $slug)->firstOrFail();
 
         return view('campaigns.show', compact('campaign'));
     }
@@ -83,6 +83,7 @@ class CampaignController extends Controller
 
         $validated['user_id'] = auth()->id();
         $validated['status'] = $request->has('publish') ? 'active' : 'draft';
+        $validated['slug'] = Str::slug($validated['title']);
 
         $campaign = Campaign::create($validated);
 

@@ -65,4 +65,4 @@ Route::middleware('auth')->group(function () {
 });
 
 // Campaign show route - HARUS setelah semua route spesifik
-Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('campaigns.show');
+Route::get('/campaigns/{slug}', [CampaignController::class, 'show'])->name('campaigns.show');
