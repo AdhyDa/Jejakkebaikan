@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
     // Dashboard Routes
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/', [DashboardController::class, 'index'])->middleware('admin')->name('index');
         Route::get('/campaigns/{id}/manage', [DashboardController::class, 'manageCampaign'])->name('campaigns.manage');
 
         // Profile
@@ -53,15 +53,31 @@ Route::middleware('auth')->group(function () {
         Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
 
         // Password
-        Route::get('/change-password', [DashboardController::class, 'changePassword'])->name('change-password');
-        Route::put('/change-password', [DashboardController::class, 'updatePassword'])->name('password.update');
+        Route::get('/change-password', [DashboardController::class, 'changePassword'])->middleware('admin')->name('change-password');
+        Route::put('/change-password', [DashboardController::class, 'updatePassword'])->middleware('admin')->name('password.update');
 
         // Donation History
         Route::get('/donation-history', [DashboardController::class, 'donationHistory'])->name('donation-history');
 
+        // Campaign Status Update
+        Route::post('/campaigns/{id}/update-status', [DashboardController::class, 'updateCampaignStatus'])->name('campaigns.update-status');
+
+        // Campaign Updates (News)
+        Route::post('/campaigns/{id}/add-update', [DashboardController::class, 'addCampaignUpdate'])->name('campaigns.add-update');
+
+        // Campaign Delete
+        Route::delete('/campaigns/{id}', [DashboardController::class, 'deleteCampaign'])->name('campaigns.delete');
+
         // Delete Account
+        Route::get('/account', [DashboardController::class, 'showDeleteAccount'])->name('account.show');
         Route::delete('/account', [DashboardController::class, 'deleteAccount'])->name('account.delete');
     });
+
+    // User Routes
+    Route::view('/user/edit', 'user.edit')->name('user.edit');
+    Route::get('/user/history', [DashboardController::class, 'donationHistory'])->name('user.history');
+    Route::get('/user/change-password', [DashboardController::class, 'userChangePassword'])->name('user.change-password');
+    Route::put('/user/change-password', [DashboardController::class, 'updatePassword'])->name('user.password.update');
 });
 
 // Campaign show route - HARUS setelah semua route spesifik

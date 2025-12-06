@@ -58,7 +58,7 @@
                 @foreach($campaigns as $campaign)
                 <div class="campaign-card">
                     <div class="card-image">
-                        <img src="{{ asset('images/' . $campaign['image']) }}" alt="Foto Kampanye">
+                        <img src="{{ asset('storage/' . $campaign['image']) }}" alt="Foto Kampanye">
                     </div>
 
                     <div class="card-content">
@@ -75,7 +75,7 @@
                             @endif
                         </div>
 
-                        <p class="description">{{ $campaign['description'] }}</p>
+                        <p class="description">{!! nl2br(e($campaign['description'])) !!}</p>
 
                         <button class="campaign-link-btn" onclick="window.location.href='{{ route('campaigns.show', $campaign['slug']) }}'">
                             {{ $campaign['link'] ?? ' ' }}

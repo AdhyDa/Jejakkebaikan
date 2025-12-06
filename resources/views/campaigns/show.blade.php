@@ -32,14 +32,24 @@
                     <p>{!! nl2br(e($campaign->description)) !!}</p>
                 </div>
                 <div id="content-berita" style="display: none;">
+                    @if($campaign->goods_description)
+                        <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                            <strong style="color: #173059;">Kebutuhan Barang</strong>
+                            <div style="font-size: 12px; color: #888; margin-bottom: 8px;">{{ $campaign->created_at->format('d M Y') }}</div>
+                            <p style="font-size: 14px; margin: 0;">{{ $campaign->goods_description }}</p>
+                        </div>
+                    @endif
+
                     @forelse($campaign->updates as $update)
-                        <div class="mb-4 pb-3 border-bottom">
-                            <strong style="font-size: 16px;">{{ $update->title }}</strong><br>
-                            <small class="text-muted">{{ $update->created_at->format('d M Y') }}</small>
-                            <p class="mt-2">{{ $update->content }}</p>
+                        <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                            <strong style="color: #173059;">{{ $update->title }}</strong>
+                            <div style="font-size: 12px; color: #888; margin-bottom: 8px;">{{ $update->created_at->format('d M Y') }}</div>
+                            <p style="font-size: 14px; margin: 0;">{{ $update->content }}</p>
                         </div>
                     @empty
-                        <p class="text-center text-muted">Belum ada berita.</p>
+                        @if(!$campaign->goods_description)
+                            <p style="color: #999; text-align: center;">Belum ada berita terbaru.</p>
+                        @endif
                     @endforelse
                 </div>
             </div>
@@ -84,15 +94,21 @@
                         </button>
 
                         <div class="donate-dropdown-menu" id="donateDropdown">
-                            <button class="donate-option-uang" onclick="openDonateModal('uang')">
-                                <span>Donasi Uang</span>
-                            </button>
-                            <button class="donate-option-barang" onclick="openDonateModal('barang')">
-                                <span>Donasi Barang</span>
-                            </button>
-                            <button class="donate-option-tenaga" onclick="openDonateModal('tenaga')">
-                                <span>Donasi Tenaga</span>
-                            </button>
+                            @if($campaign->target_amount > 0)
+                                <button class="donate-option-uang" onclick="openDonateModal('uang')">
+                                    <span>Donasi Uang</span>
+                                </button>
+                            @endif
+                            @if($campaign->goods_description)
+                                <button class="donate-option-barang" onclick="openDonateModal('barang')">
+                                    <span>Donasi Barang</span>
+                                </button>
+                            @endif
+                            @if($campaign->volunteer_quota > 0)
+                                <button class="donate-option-tenaga" onclick="openDonateModal('tenaga')">
+                                    <span>Donasi Tenaga</span>
+                                </button>
+                            @endif
                         </div>
                     </div>
 

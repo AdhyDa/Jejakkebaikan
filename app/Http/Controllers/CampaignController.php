@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
@@ -59,7 +60,8 @@ class CampaignController extends Controller
 
     public function create()
     {
-        return view('campaigns.create');
+        $campaign = new Campaign();
+        return view('campaigns.create', compact('campaign'));
     }
 
     public function store(Request $request)
@@ -75,6 +77,7 @@ class CampaignController extends Controller
             'need_goods' => 'boolean',
             'need_volunteer' => 'boolean',
             'target_amount' => 'nullable|numeric|min:0',
+            'goods_description' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -83,7 +86,16 @@ class CampaignController extends Controller
 
         $validated['user_id'] = auth()->id();
         $validated['status'] = $request->has('publish') ? 'active' : 'draft';
-        $validated['slug'] = Str::slug($validated['title']);
+
+        // Generate unique slug
+        $slug = Str::slug($validated['title']);
+        $originalSlug = $slug;
+        $counter = 1;
+        while (Campaign::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+        $validated['slug'] = $slug;
 
         $campaign = Campaign::create($validated);
 
@@ -116,6 +128,18 @@ class CampaignController extends Controller
                 Storage::disk('public')->delete($campaign->image);
             }
             $validated['image'] = $request->file('image')->store('campaigns', 'public');
+        }
+
+        // Update slug if title changed
+        if ($campaign->title !== $validated['title']) {
+            $slug = Str::slug($validated['title']);
+            $originalSlug = $slug;
+            $counter = 1;
+            while (Campaign::where('slug', $slug)->where('id', '!=', $campaign->id)->exists()) {
+                $slug = $originalSlug . '-' . $counter;
+                $counter++;
+            }
+            $validated['slug'] = $slug;
         }
 
         $campaign->update($validated);

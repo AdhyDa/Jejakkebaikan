@@ -2,289 +2,165 @@
 
 @section('title', 'Buat Campaign - Jejakkebaikan')
 
-@push('styles')
-<style>
-    /* PAGE TITLE */
-    .page-title {
-        color: #142850;
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 30px;
-        margin-top: 10px;
-    }
-
-    /* UPLOAD BOX CUSTOM */
-    .upload-container {
-        background-color: #aeb4b9; /* Abu-abu sesuai gambar */
-        height: 220px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        margin-bottom: 30px;
-        position: relative;
-        transition: 0.3s;
-        border-radius: 4px; /* Sedikit rounded di sudut */
-    }
-
-    .upload-container:hover {
-        opacity: 0.9;
-    }
-
-    .upload-icon {
-        font-size: 3rem;
-        color: #4a4a4a;
-        margin-bottom: 5px;
-    }
-
-    .upload-text {
-        color: #555;
-        font-size: 0.85rem;
-    }
-
-    /* LABEL STYLING */
-    .form-label {
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: #142850;
-        margin-bottom: 8px;
-    }
-
-    /* PILL BUTTONS & LAYOUT (VERTICAL) */
-    .campaign-options-container {
-        display: flex;
-        flex-direction: column; /* Susun ke bawah */
-        gap: 15px; /* Jarak antar tombol */
-    }
-
-    .dana-row {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        width: 100%;
-    }
-
-    /* Style Tombol Pill */
-    .btn-outline-custom {
-        min-width: 130px;
-        border: 2px solid #aeb4b9;
-        color: #6c757d;
-        border-radius: 50px; /* Bentuk kapsul */
-        padding: 8px 20px;
-        font-weight: 700;
-        background-color: white;
-        transition: all 0.2s;
-        text-align: center;
-    }
-
-    .btn-outline-custom:hover {
-        border-color: #0d6efd;
-        color: #0d6efd;
-    }
-
-    /* State Checked */
-    .btn-check:checked + .btn-outline-custom {
-        background-color: #0d6efd;
-        color: white;
-        border-color: #0d6efd;
-    }
-
-    /* Icon Checklist (Opsional, jika ingin persis gambar ada centang putih) */
-    .btn-check:checked + .btn-outline-custom::before {
-        content: "✓ ";
-        font-weight: bold;
-    }
-
-    /* Target Input Wrapper */
-    .target-input-wrapper {
-        flex-grow: 1;
-        max-width: 400px;
-    }
-
-    /* Input di dalam target wrapper */
-    .target-input-wrapper .form-control {
-        border-radius: 10px;
-        border: 2px solid #aeb4b9; /* Border abu-abu tebal */
-        color: #6c757d;
-    }
-
-    /* ACTION BUTTONS */
-    .btn-action-draft {
-        border: 2px solid #aeb4b9;
-        color: #6c757d;
-        background: white;
-        border-radius: 10px;
-        padding: 12px 0;
-        width: 100%;
-        font-weight: 700;
-        transition: 0.3s;
-    }
-    .btn-action-draft:hover {
-        background: #f8f9fa;
-        color: #333;
-    }
-
-    .btn-action-publish {
-        background-color: #0d6efd;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        padding: 12px 0;
-        width: 100%;
-        font-weight: 700;
-        transition: 0.3s;
-    }
-    .btn-action-publish:hover {
-        background-color: #0b5ed7;
-    }
-</style>
-@endpush
-
 @section('content')
-<div class="container my-4">
-    <div class="breadcrumb-custom">
+<div class="nav-container">
+    <div class="breadcrumb-nav">
         <a href="{{ route('home') }}">Home</a> &nbsp; > &nbsp;
-        <a href="{{ route('dashboard.index') }}">Dashboard</a> &nbsp; > &nbsp;
-        <span>Buat Campaign Baru</span>
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-
-            <h2 class="page-title">Buat Campaign Baru</h2>
-
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('campaigns.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                <div class="mb-4">
-                    <label for="image" class="upload-container" id="upload-label">
-                        <i class="bi bi-upload upload-icon"></i>
-                        <span class="upload-text">upload image (jpg, png, jpeg) *</span>
-                        <img id="image-preview" src="#" alt="Preview" style="display:none; width:100%; height:100%; object-fit:cover; position:absolute; border-radius:4px;">
-                    </label>
-                    <input type="file" class="d-none" id="image" name="image" accept="image/jpeg,image/png,image/jpg" required onchange="previewImage(this)">
-                </div>
-
-                <div class="mb-3">
-                    <label for="title" class="form-label">Judul Campaign <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control rounded-3" id="title" name="title" value="{{ old('title') }}" required placeholder="Masukkan Judul Campaign">
-                </div>
-                <div class="mb-3">
-                    <label for="organization_name" class="form-label">Organisasi <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control rounded-3" id="organization_name" name="organization_name" value="{{ old('organization_name') }}" required placeholder="Masukkan Organisasi Campaign">
-                </div>
-
-                <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi Lengkap <span class="text-danger">*</span></label>
-                    <textarea class="form-control rounded-3" id="description" name="description" rows="5" required placeholder="Masukkan Deskripsi/Cerita Campaign">{{ old('description') }}</textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="category" class="form-label">Kategori Campaign <span class="text-danger">*</span></label>
-                    <select class="form-select rounded-3" id="category" name="category" required>
-                        <option value="">Masukkan Kategori Campaign</option>
-                        <option value="Pendidikan" {{ old('category') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
-                        <option value="Kemanusiaan" {{ old('category') == 'Kemanusiaan' ? 'selected' : '' }}>Kemanusiaan</option>
-                        <option value="Bencana Alam" {{ old('category') == 'Bencana Alam' ? 'selected' : '' }}>Bencana Alam</option>
-                        <option value="Lingkungan" {{ old('category') == 'Lingkungan' ? 'selected' : '' }}>Lingkungan</option>
-                        <option value="Panti Asuhan" {{ old('category') == 'Panti Asuhan' ? 'selected' : '' }}>Panti Asuhan</option>
-                    </select>
-                </div>
-
-                <div class="mb-4">
-                    <label for="end_date" class="form-label">Batas Waktu Campaign <span class="text-danger">*</span></label>
-                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control rounded-3" id="end_date" name="end_date" value="{{ old('end_date') }}" required placeholder="DD/MM/YY">
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label d-block">Kebutuhan Campaign <span class="text-danger">*</span></label>
-
-                    <div class="campaign-options-container">
-
-                        <div class="dana-row">
-                            <div>
-                                <input type="checkbox" class="btn-check" id="need_money" name="need_money" value="1" {{ old('need_money') ? 'checked' : '' }} onchange="toggleMoneyTarget()">
-                                <label class="btn btn-outline-custom rounded-pill" for="need_money">Dana</label>
-                            </div>
-
-                            <div id="target_amount_div" class="target-input-wrapper" style="display: none;">
-                                <input type="number" class="form-control" id="target_amount" name="target_amount" value="{{ old('target_amount') }}" placeholder="Target Nominal Dana">
-                            </div>
-                        </div>
-
-                        <div>
-                            <input type="checkbox" class="btn-check" id="need_goods" name="need_goods" value="1" {{ old('need_goods') ? 'checked' : '' }}>
-                            <label class="btn btn-outline-custom rounded-pill" for="need_goods">Barang</label>
-                        </div>
-
-                        <div>
-                            <input type="checkbox" class="btn-check" id="need_volunteer" name="need_volunteer" value="1" {{ old('need_volunteer') ? 'checked' : '' }}>
-                            <label class="btn btn-outline-custom rounded-pill" for="need_volunteer">Tenaga</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row g-3 mt-5 mb-5">
-                    <div class="col-6">
-                        <button type="submit" name="draft" class="btn btn-action-draft">Simpan Sebagai Draft</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" name="publish" class="btn btn-action-publish">Publikasikan Sekarang</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+        <a href="{{ route('dashboard.index') }}">Dashboard</a> &nbsp; > &nbsp; Buat Campaign
     </div>
 </div>
+<div class="create-form-container">
+    <h2 class="page-title">Buat Campaign Baru</h2>
 
-@push('scripts')
+    @if($errors->any())
+        <div class="alert alert-danger mb-4 rounded-3">
+            <ul class="mb-0 ps-3">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('campaigns.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <div class="form-group">
+            <input type="file" id="imageInput" name="image" accept="image/jpeg,image/png,image/jpg" class="d-none" required onchange="previewImage(this)">
+            <label for="imageInput" class="upload-box-wrapper">
+                <div class="upload-placeholder-content" id="uploadPlaceholder">
+                    <div class="upload-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-icon lucide-upload">
+                            <path d="M12 3v12"/>
+                            <path d="m17 8-5-5-5 5"/>
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        </svg>
+                    </div>
+                    <div class="upload-text-hint">Upload an image (jpg, png, jpeg) <span class="text-red">*</span></div>
+                </div>
+                <img id="image-preview" src="#" alt="Preview">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="title" class="form-label-custom">Judul Campaign <span class="text-red">*</span></label>
+            <input type="text" class="form-input-rounded" id="title" name="title" value="{{ old('title') }}" required placeholder="Masukkan Judul Campaign">
+        </div>
+
+
+        <div class="form-group">
+            <label for="organization_name" class="form-label-custom">Organisasi <span class="text-red">*</span></label>
+            <input type="text" class="form-input-rounded" id="organization_name" name="organization_name" value="{{ old('organization_name', 'Jejakkebaikan') }}" required placeholder="Masukkan Nama Organisasi">
+        </div>
+
+        <input type="hidden" name="organization_name" value="{{ old('organization_name', 'Jejakkebaikan') }}">
+
+        <div class="form-group">
+            <label for="description" class="form-label-custom">Deskripsi Lengkap <span class="text-red">*</span></label>
+            <textarea class="form-input-rounded" id="description" name="description" rows="6" required placeholder="Masukkan Deskripsi/Cerita Campaign">{{ old('description') }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="category" class="form-label-custom">Kategori Campaign <span class="text-red">*</span></label>
+            <select class="form-input-rounded" id="category" name="category" required style="-webkit-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%23999\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/></svg>'); background-repeat: no-repeat; background-position: right 15px center;">
+                <option value="">Masukkan Kategori Campaign</option>
+                <option value="Pendidikan" {{ old('category') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
+                <option value="Kemanusiaan" {{ old('category') == 'Kemanusiaan' ? 'selected' : '' }}>Kemanusiaan</option>
+                <option value="Kesehatan" {{ old('category') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
+                <option value="Bencana Alam" {{ old('category') == 'Bencana Alam' ? 'selected' : '' }}>Bencana Alam</option>
+                <option value="Lingkungan" {{ old('category') == 'Lingkungan' ? 'selected' : '' }}>Lingkungan</option>
+                <option value="Panti Asuhan" {{ old('category') == 'Panti Asuhan' ? 'selected' : '' }}>Panti Asuhan</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="end_date" class="form-label-custom">Batas Waktu Campaign <span class="text-red">*</span></label>
+            {{-- Trik agar placeholder muncul sebelum diklik jadi date picker --}}
+            <input type="text" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" class="form-input-rounded" id="end_date" name="end_date" value="{{ old('end_date') }}" required placeholder="DD/MM/YY">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label-custom">Kebutuhan Campaign <span class="text-red">*</span></label>
+
+            <div class="needs-container">
+
+                <div class="need-item-row">
+                    <input type="checkbox" class="btn-check-hidden" id="need_money" name="need_money" value="1" onchange="toggleNeed('money')">
+                    <label class="btn-pill-custom" for="need_money">Dana</label>
+
+                    <div class="dynamic-input-wrapper" id="input_wrapper_money">
+                        <input type="number" class="form-input-rounded" name="target_amount" placeholder="Target Nominal Dana">
+                    </div>
+                </div>
+
+                <div class="need-item-col">
+                    <div class="need-item-row">
+                        <input type="checkbox" class="btn-check-hidden" id="need_goods" name="need_goods" value="1" onchange="toggleNeed('goods')">
+                        <label class="btn-pill-custom" for="need_goods">Barang</label>
+                    </div>
+
+                    <div class="dynamic-input-full" id="input_wrapper_goods">
+                        <textarea class="form-input-rounded" name="goods_description" rows="3" placeholder="Deskripsi kebutuhan barang (akan muncul di tab Berita)"></textarea>
+                    </div>
+                </div>
+
+                <div class="need-item-row">
+                    <input type="checkbox" class="btn-check-hidden" id="need_volunteer" name="need_volunteer" value="1" onchange="toggleNeed('volunteer')">
+                    <label class="btn-pill-custom" for="need_volunteer">Tenaga</label>
+
+                    <div class="dynamic-input-wrapper" id="input_wrapper_volunteer">
+                        <input type="number" class="form-input-rounded" name="volunteer_quota" placeholder="Jumlah Kapasitas Maksimal Relawan">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons-row">
+            <div class="action-col">
+                <button type="submit" name="draft" value="1" class="btn-draft">Simpan Sebagai Draft</button>
+            </div>
+            <div class="action-col">
+                <button type="submit" class="btn-publish">Publikasikan Sekarang</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
 <script>
-    // Preview Image Logic
     function previewImage(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('image-preview').src = e.target.result;
                 document.getElementById('image-preview').style.display = 'block';
-                document.querySelector('.upload-icon').style.display = 'none';
-                document.querySelector('.upload-text').style.display = 'none';
+                document.getElementById('uploadPlaceholder').style.display = 'none';
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    // Toggle target amount field logic
-    function toggleMoneyTarget() {
-        const needMoney = document.getElementById('need_money');
-        const targetAmountDiv = document.getElementById('target_amount_div');
-        const targetAmountInput = document.getElementById('target_amount');
+    function toggleNeed(type) {
+        const checkbox = document.getElementById('need_' + type);
+        const wrapper = document.getElementById('input_wrapper_' + type);
 
-        if (needMoney.checked) {
-            targetAmountDiv.style.display = 'block';
-            targetAmountInput.required = true;
+        if (checkbox.checked) {
+            // Tampilkan input (Block untuk goods/full, Flex/Block untuk lainnya)
+            wrapper.style.display = (type === 'goods') ? 'block' : 'block';
+
+            // Set required jika diperlukan
+            const inputField = wrapper.querySelector('input, textarea');
+            if(inputField) inputField.required = true;
         } else {
-            targetAmountDiv.style.display = 'none';
-            targetAmountInput.required = false;
-            targetAmountInput.value = '';
+            wrapper.style.display = 'none';
+
+            // Reset value & required
+            const inputField = wrapper.querySelector('input, textarea');
+            if(inputField) {
+                inputField.value = '';
+                inputField.required = false;
+            }
         }
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        toggleMoneyTarget();
-    });
 </script>
-@endpush
 @endsection

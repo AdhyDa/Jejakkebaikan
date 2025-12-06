@@ -15,7 +15,16 @@ class PopulateCampaignSlugs extends Seeder
     public function run(): void
     {
         Campaign::all()->each(function ($campaign) {
-            $campaign->update(['slug' => Str::slug($campaign->title)]);
+            if (empty($campaign->slug)) {
+                $slug = Str::slug($campaign->title);
+                $originalSlug = $slug;
+                $counter = 1;
+                while (Campaign::where('slug', $slug)->where('id', '!=', $campaign->id)->exists()) {
+                    $slug = $originalSlug . '-' . $counter;
+                    $counter++;
+                }
+                $campaign->update(['slug' => $slug]);
+            }
         });
     }
 }

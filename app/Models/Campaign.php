@@ -24,6 +24,7 @@ class Campaign extends Model
         'need_money',
         'need_goods',
         'need_volunteer',
+        'goods_description',
         'status',
     ];
 
