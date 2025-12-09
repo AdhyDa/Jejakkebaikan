@@ -36,8 +36,59 @@
                 <div class="nav-right">
                     <a href="{{ route('home') }}" class="nav-link">Home</a>
                     <a href="{{ route('about') }}" class="nav-link">About us</a>
-                    <a href="{{ route('login') }}" class="btn-login">Login</a>
-                    <a href="{{ route('register') }}" class="btn-daftar">Daftar</a>
+                    @auth
+                        <!-- Logged In User -->
+                        <div class="user-menu">
+                            <button class="user-button" id="userMenuButton">
+                                <span class="user-name">{{ Auth::user()->username }}</span>
+                                <div class="user-avatar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div class="user-dropdown" id="userDropdown">
+                                <div class="dropdown-header">
+                                    <p class="dropdown-name">{{ Auth::user()->name }}</p>
+                                    <p class="dropdown-email">{{ Auth::user()->email }}</p>
+                                </div>
+                                <a href="{{ route('dashboard.index') }}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="9" y1="3" x2="9" y2="21"></line>
+                                    </svg>
+                                    <span>Dashboard</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{{ route('dashboard.profile') }}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <span>Profile Saya</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item logout-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                            <polyline points="16 17 21 12 16 7"></polyline>
+                                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                                        </svg>
+                                        <span>Keluar</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <!-- Not Logged In -->
+                        <a href="{{ route('login') }}" class="btn-login">Login</a>
+                        <a href="{{ route('register') }}" class="btn-daftar">Daftar</a>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -86,6 +137,22 @@
     </footer>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script>
+        document.getElementById('userMenuButton').addEventListener('click', function(event) {
+            event.stopPropagation();
+            document.getElementById('userDropdown').classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const button = document.getElementById('userMenuButton');
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+    </script>
 
 </body>
 </html>
