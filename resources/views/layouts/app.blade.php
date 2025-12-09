@@ -37,39 +37,69 @@
                     <a href="{{ route('home') }}" class="nav-link">Home</a>
                     <a href="{{ route('about') }}" class="nav-link">About us</a>
                     @auth
-                        <!-- Logged In User -->
                         <div class="user-menu">
                             <button class="user-button" id="userMenuButton">
                                 <span class="user-name">{{ Auth::user()->username }}</span>
                                 <div class="user-avatar">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
+                                    @if(Auth::user()->photo)
+                                        <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Avatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                    @endif
                                 </div>
                             </button>
 
-                            <!-- Dropdown Menu -->
                             <div class="user-dropdown" id="userDropdown">
                                 <div class="dropdown-header">
                                     <p class="dropdown-name">{{ Auth::user()->name }}</p>
                                     <p class="dropdown-email">{{ Auth::user()->email }}</p>
+                                    <span style="font-size: 10px; background: #e3f2fd; color: #0046FF; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;">
+                                        {{ Auth::user()->role }}
+                                    </span>
                                 </div>
-                                <a href="{{ route('dashboard.index') }}" class="dropdown-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="9" y1="3" x2="9" y2="21"></line>
-                                    </svg>
-                                    <span>Dashboard</span>
-                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ route('dashboard.profile') }}" class="dropdown-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    <span>Profile Saya</span>
-                                </a>
+
+                                @if(Auth::user()->role === 'admin')
+                                    <a href="{{ route('dashboard.index') }}" class="dropdown-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="9" y1="3" x2="9" y2="21"></line>
+                                        </svg>
+                                        <span>Dashboard Admin</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ route('dashboard.profile') }}" class="dropdown-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span>Edit Profil</span>
+                                    </a>
+                                @endif
+
+                                @if(Auth::user()->role === 'user')
+                                    <a href="{{ route('user.history') }}" class="dropdown-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                        <span>Riwayat Donasi</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+
+
+                                    <a href="{{ route('user.edit') }}" class="dropdown-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span>Edit Profil</span>
+                                    </a>
+                                @endif
+
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                                     @csrf

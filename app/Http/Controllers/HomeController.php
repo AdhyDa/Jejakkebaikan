@@ -29,6 +29,7 @@ class HomeController extends Controller
 
             return [
                 'id' => $campaign->id,
+                'slug' => $campaign->slug,
                 'title' => $campaign->title,
                 'organization' => $campaign->organization_name,
                 'organization_logo' => $organization_logo,

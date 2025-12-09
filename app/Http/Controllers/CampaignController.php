@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
@@ -44,7 +45,7 @@ class CampaignController extends Controller
         return view('campaigns.index', compact('campaigns'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
         $campaign = Campaign::with([
             'user',
@@ -52,14 +53,15 @@ class CampaignController extends Controller
             'goodsDonations',
             'volunteerDonations',
             'updates'
-        ])->findOrFail($id);
+        ])->where('slug', $slug)->firstOrFail();
 
         return view('campaigns.show', compact('campaign'));
     }
 
     public function create()
     {
-        return view('campaigns.create');
+        $campaign = new Campaign();
+        return view('campaigns.create', compact('campaign'));
     }
 
     public function store(Request $request)
@@ -75,14 +77,27 @@ class CampaignController extends Controller
             'need_goods' => 'boolean',
             'need_volunteer' => 'boolean',
             'target_amount' => 'nullable|numeric|min:0',
+            'goods_description' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('campaigns', 'public');
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $filename);
+            $validated['image'] = $filename;
         }
 
         $validated['user_id'] = auth()->id();
         $validated['status'] = $request->has('publish') ? 'active' : 'draft';
+
+        // Generate unique slug
+        $slug = Str::slug($validated['title']);
+        $originalSlug = $slug;
+        $counter = 1;
+        while (Campaign::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+        $validated['slug'] = $slug;
 
         $campaign = Campaign::create($validated);
 
@@ -111,10 +126,24 @@ class CampaignController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($campaign->image) {
-                Storage::disk('public')->delete($campaign->image);
+            if ($campaign->image && file_exists(public_path('images/' . $campaign->image))) {
+                unlink(public_path('images/' . $campaign->image));
             }
-            $validated['image'] = $request->file('image')->store('campaigns', 'public');
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $filename);
+            $validated['image'] = $filename;
+        }
+
+        // Update slug if title changed
+        if ($campaign->title !== $validated['title']) {
+            $slug = Str::slug($validated['title']);
+            $originalSlug = $slug;
+            $counter = 1;
+            while (Campaign::where('slug', $slug)->where('id', '!=', $campaign->id)->exists()) {
+                $slug = $originalSlug . '-' . $counter;
+                $counter++;
+            }
+            $validated['slug'] = $slug;
         }
 
         $campaign->update($validated);
@@ -126,8 +155,8 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::where('user_id', auth()->id())->findOrFail($id);
 
-        if ($campaign->image) {
-            Storage::disk('public')->delete($campaign->image);
+        if ($campaign->image && file_exists(public_path('images/' . $campaign->image))) {
+            unlink(public_path('images/' . $campaign->image));
         }
 
         $campaign->delete();

@@ -4,14 +4,47 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Campaign extends Model
 {
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($campaign) {
+            if (empty($campaign->slug)) {
+                $slug = Str::slug($campaign->title);
+                $originalSlug = $slug;
+                $counter = 1;
+                while (self::where('slug', $slug)->exists()) {
+                    $slug = $originalSlug . '-' . $counter;
+                    $counter++;
+                }
+                $campaign->slug = $slug;
+            }
+        });
+
+        static::updating(function ($campaign) {
+            if ($campaign->isDirty('title') && empty($campaign->slug)) {
+                $slug = Str::slug($campaign->title);
+                $originalSlug = $slug;
+                $counter = 1;
+                while (self::where('slug', $slug)->where('id', '!=', $campaign->id)->exists()) {
+                    $slug = $originalSlug . '-' . $counter;
+                    $counter++;
+                }
+                $campaign->slug = $slug;
+            }
+        });
+    }
+
     protected $fillable = [
         'user_id',
         'title',
+        'slug',
         'description',
         'image',
         'category',
@@ -22,6 +55,7 @@ class Campaign extends Model
         'need_money',
         'need_goods',
         'need_volunteer',
+        'goods_description',
         'status',
     ];
 

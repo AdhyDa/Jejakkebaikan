@@ -20,6 +20,7 @@ class User extends Authenticatable
         'bio',
         'photo',
         'password',
+        'role',
     ];
 
     protected $hidden = [
@@ -54,5 +55,16 @@ class User extends Authenticatable
     public function volunteerDonations()
     {
         return $this->hasMany(VolunteerDonation::class);
+    }
+
+    // Role methods
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
     }
 }

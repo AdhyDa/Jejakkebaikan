@@ -17,24 +17,29 @@ class DashboardController extends Controller
     {
         $campaigns = Campaign::orderBy('id', 'asc')->get();
 
-        return view('dashboard.index', compact('campaigns'));
+        return view('admin.index', compact('campaigns'));
     }
 
     public function manageCampaign($id)
     {
-        $campaign = Campaign::with([
+        $query = Campaign::with([
             'moneyDonations.user',
             'goodsDonations.user',
             'volunteerDonations.user'
-        ])->where('user_id', auth()->id())
-            ->findOrFail($id);
+        ]);
 
-        return view('dashboard.manage', compact('campaign'));
+        if (!auth()->user()->isAdmin()) {
+            $query->where('user_id', auth()->id());
+        }
+
+        $campaign = $query->findOrFail($id);
+
+        return view('admin.manage', compact('campaign'));
     }
 
     public function profile()
     {
-        return view('dashboard.profile');
+        return view('admin.profile');
     }
 
     public function updateProfile(Request $request)
@@ -66,7 +71,12 @@ class DashboardController extends Controller
 
     public function changePassword()
     {
-        return view('dashboard.change-password');
+        return view('admin.change-password');
+    }
+
+    public function userChangePassword()
+    {
+        return view('user.change-password');
     }
 
     public function updatePassword(Request $request)
@@ -106,15 +116,57 @@ class DashboardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('dashboard.donation-history', compact(
+        return view('user.history', compact(
             'moneyDonations',
             'goodsDonations',
             'volunteerDonations'
         ));
     }
 
+    public function updateCampaignStatus(Request $request, $id)
+    {
+        $campaign = Campaign::where('user_id', auth()->id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|in:draft,active',
+        ]);
+
+        $campaign->update(['status' => $validated['status']]);
+
+        $message = $validated['status'] === 'active' ? 'Campaign berhasil dipublikasikan!' : 'Campaign disimpan sebagai draft!';
+
+        return back()->with('success', $message);
+    }
+
+
+
+    public function addCampaignUpdate(Request $request, $id)
+    {
+        $campaign = Campaign::where('user_id', auth()->id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $campaign->updates()->create($validated);
+
+        return back()->with('success', 'Update campaign berhasil ditambahkan!');
+    }
+
+    public function showDeleteAccount()
+    {
+        return view('user.delete-account');
+    }
+
     public function deleteAccount(Request $request)
     {
+        $request->validate([
+            'confirmation' => 'required|string|in:HAPUS AKUN SAYA',
+        ], [
+            'confirmation.in' => 'Konfirmasi harus tepat sama dengan "HAPUS AKUN SAYA".',
+        ]);
+
         $user = auth()->user();
 
         // Delete user's photo
