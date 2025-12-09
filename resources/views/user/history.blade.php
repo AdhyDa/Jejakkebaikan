@@ -6,7 +6,7 @@
     <div class="user-breadcrumb">
         <a href="{{ route('home') }}">Home</a> <span>&gt;</span>
         <a href="{{ route('dashboard.index') }}">Dashboard</a> <span>&gt;</span>
-        Kelola Campaign
+        Riwayat Donasi
     </div>
 <div class="dashboard-container-history">
 

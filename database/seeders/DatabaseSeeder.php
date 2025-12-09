@@ -56,7 +56,6 @@ class DatabaseSeeder extends Seeder
             'need_goods' => true,
             'need_volunteer' => true,
             'status' => 'active',
-            'slug' => 'pulihkan-senyum-penyintas-bangun-kembali-desa-sukamaju-pasca-gempa',
         ]);
 
         // Add goods needs for campaign1
@@ -126,7 +125,6 @@ class DatabaseSeeder extends Seeder
             'need_goods' => false,
             'need_volunteer' => false,
             'status' => 'active',
-            'slug' => 'penuhi-gizi-50-anak-yatim-panti-asuhan-kasih-bunda',
         ]);
 
         $campaign4 = Campaign::firstOrCreate([
@@ -144,7 +142,6 @@ class DatabaseSeeder extends Seeder
             'need_goods' => false,
             'need_volunteer' => true,
             'status' => 'active',
-            'slug' => 'aksi-bersih-pantai-selamatkan-penyu-dari-jeratan-plastik',
         ]);
 
         // Add volunteer needs for campaign4
@@ -180,7 +177,6 @@ class DatabaseSeeder extends Seeder
             'need_goods' => true,
             'need_volunteer' => true,
             'status' => 'active',
-            'slug' => 'bantu-mbah-karti-lansia-sebatang-kara-melawan-sakit-di-usia-senja',
         ]);
 
         // Add goods needs for campaign5
@@ -232,7 +228,6 @@ class DatabaseSeeder extends Seeder
             'need_goods' => false,
             'need_volunteer' => false,
             'status' => 'active',
-            'slug' => 'bangun-jendela-dunia-dirikan-taman-baca-pelita-harapan-di-desa-nelayan',
         ]);
 
         echo "Database seeded successfully!\n";

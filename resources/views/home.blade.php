@@ -58,7 +58,7 @@
                 @foreach($campaigns as $campaign)
                 <div class="campaign-card">
                     <div class="card-image">
-                        <img src="{{ asset('storage/' . $campaign['image']) }}" alt="Foto Kampanye">
+                        <img src="{{ asset('images/' . $campaign['image']) }}" alt="Foto Kampanye">
                     </div>
 
                     <div class="card-content">

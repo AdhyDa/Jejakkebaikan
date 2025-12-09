@@ -74,7 +74,7 @@
                 @foreach($campaigns as $campaign)
                 <div class="dash-campaign-card">
                     <div class="card-img-wrapper">
-                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
+                        <img src="{{ asset('images/' . $campaign['image']) }}" alt="{{ $campaign->title }}">
                     </div>
 
                     <div class="card-info">

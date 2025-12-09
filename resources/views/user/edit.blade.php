@@ -6,7 +6,7 @@
     <div class="user-breadcrumb">
         <a href="{{ route('home') }}">Home</a> <span>&gt;</span>
         <a href="{{ route('dashboard.index') }}">Dashboard</a> <span>&gt;</span>
-        Kelola Campaign
+        Edit Profil
     </div>
 <div class="dashboard-container">
 

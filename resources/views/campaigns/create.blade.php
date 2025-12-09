@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <label for="title" class="form-label-custom">Judul Campaign <span class="text-red">*</span></label>
-            <input type="text" class="form-input-rounded" id="title" name="title" value="{{ old('title') }}" required placeholder="Masukkan Judul Campaign">
+            <input type="text" class="form-input-rounded" id="title" name="title" value="{{ old('title') }}" required placeholder="Masukkan Judul Campaign" oninput="capitalizeTitle(this)">
         </div>
 
 
@@ -120,7 +120,7 @@
                 <button type="submit" name="draft" value="1" class="btn-draft">Simpan Sebagai Draft</button>
             </div>
             <div class="action-col">
-                <button type="submit" class="btn-publish">Publikasikan Sekarang</button>
+                <button type="submit" name="publish" value="1" class="btn-publish">Publikasikan Sekarang</button>
             </div>
         </div>
 
@@ -161,6 +161,10 @@
                 inputField.required = false;
             }
         }
+    }
+
+    function capitalizeTitle(input) {
+        input.value = input.value.replace(/\b\w/g, l => l.toUpperCase());
     }
 </script>
 @endsection

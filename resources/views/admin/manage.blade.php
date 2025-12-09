@@ -21,7 +21,7 @@
 
     <div class="manage-image-wrapper">
         @if($campaign->image)
-            <img src="{{ asset('storage/' . $campaign->image) }}" class="manage-image-real" alt="Campaign Image">
+            <img src="{{ asset('images/' . $campaign->image) }}" class="manage-image-real" alt="Campaign Image">
         @else
             <div style="width:100%; height:100%; background:#ccc; display:flex; align-items:center; justify-content:center; color:#666;">Belum ada foto</div>
         @endif
@@ -29,7 +29,7 @@
 
     <div class="top-tabs">
         <div class="top-tab-item active" id="tab-btn-kisah" onclick="switchTopTab('kisah')">Kisah</div>
-        <div class="top-tab-item" id="tab-btn-berita" onclick="switchTopTab('berita')">Berita ({{ $campaign->updates->count() }})</div>
+        <div class="top-tab-item" id="tab-btn-berita" onclick="switchTopTab('berita')">Berita ({{ $campaign->updates->count() + ($campaign->goods_description ? 1 : 0) }})</div>
     </div>
 
     <div class="tab-content-box">
@@ -51,6 +51,16 @@
                     Tulis Kabar Baru
                 </button>
             </div>
+
+            @if($campaign->goods_description)
+                <div style="margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                        <strong style="color: #173059; font-size:15px;">Kebutuhan Barang</strong>
+                        <small style="color:#999;">{{ $campaign->created_at->format('d M Y') }}</small>
+                    </div>
+                    <p style="font-size: 14px; color:#555; margin: 0; line-height:1.6;">{{ $campaign->goods_description }}</p>
+                </div>
+            @endif
 
             @forelse($campaign->updates as $update)
                 <div style="margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
@@ -88,7 +98,7 @@
                             <p>Rp {{ number_format($donation->amount, 0, ',', '.') }} • {{ $donation->created_at->format('d M Y') }}</p>
                         </div>
                     </div>
-                    <div><span style="background:white; border:1px solid #000; padding:2px 5px; font-weight:bold; font-family:monospace;">QRIS</span></div>
+                    <div><img src="{{ asset('images/qris.png') }}" alt="QRIS" style="background:white; border:1px solid #000; padding:2px 5px; width:8kfkf0px; height:auto;"></div>
                 </div>
                 @empty
                 <div style="text-align: center; padding: 20px; color: #666;">Belum ada donasi dana.</div>
@@ -151,6 +161,17 @@
             </div>
         </div>
     </div>
+        @if($campaign->status === 'draft')
+            <div class="meta-item">
+                <form action="{{ route('dashboard.campaigns.update-status', $campaign->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="status" value="active">
+                    <button type="submit" class="btn-publish-campaign">
+                        <i class="bi bi-upload"></i> Publikasikan Campaign
+                    </button>
+                </form>
+            </div>
+        @endif
         <button type="button" class="btn-delete-campaign" onclick="openModal('deleteModal')">
             <i class="bi bi-trash"></i> Hapus Campaign
         </button>

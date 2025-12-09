@@ -15,7 +15,7 @@
         <div class="layout-left">
             <div class="main-image-wrapper">
                 @if($campaign->image)
-                    <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
+                    <img src="{{ asset('images/' . $campaign['image']) }}" alt="{{ $campaign->title }}">
                 @else
                     <div style="width:100%; height:100%; background:#ccc;"></div>
                 @endif
@@ -23,7 +23,7 @@
 
             <div class="nav-tabs-custom">
                 <div class="nav-tab-item active" id="tab-kisah" onclick="switchTab('kisah')">Kisah</div>
-                <div class="nav-tab-item" id="tab-berita" onclick="switchTab('berita')">Berita ({{ $campaign->updates->count() }})</div>
+                <div class="nav-tab-item" id="tab-berita" onclick="switchTab('berita')">Berita ({{ $campaign->updates->count() + ($campaign->goods_description ? 1 : 0) }})</div>
             </div>
 
             <div class="tab-content-area">
@@ -104,7 +104,7 @@
                                     <span>Donasi Barang</span>
                                 </button>
                             @endif
-                            @if($campaign->volunteer_quota > 0)
+                            @if($campaign->need_volunteer)
                                 <button class="donate-option-tenaga" onclick="openDonateModal('tenaga')">
                                     <span>Donasi Tenaga</span>
                                 </button>
@@ -156,11 +156,11 @@
             <h4 style="margin: 0; color: #173059;">Donasi Uang</h4>
         </div>
         <div class="modal-body-scroll">
-            <form action="#" method="POST" style="padding: 20px 0;">
+            <form action="{{ route('donations.money', $campaign->id) }}" method="POST" style="padding: 20px 0;">
                 @csrf
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nominal (Rp)</label>
-                    <input type="number" name="amount" class="form-input" placeholder="Minimum Rp 1.000" min="1000" required>
+                    <input type="number" name="amount" class="form-input" placeholder="Minimum Rp 10.000" min="10000" step="10000" required>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
@@ -183,7 +183,7 @@
             <h4 style="margin: 0; color: #173059;">Donasi Barang</h4>
         </div>
         <div class="modal-body-scroll">
-            <form action="#" method="POST" style="padding: 20px 0;">
+            <form action="{{ route('donations.goods', $campaign->id) }}" method="POST" style="padding: 20px 0;">
                 @csrf
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nama Barang <span style="color: red;">*</span></label>
@@ -220,7 +220,7 @@
             <h4 style="margin: 0; color: #173059;">Donasi Tenaga</h4>
         </div>
         <div class="modal-body-scroll">
-            <form action="#" method="POST" style="padding: 20px 0;">
+            <form action="{{ route('donations.volunteer', $campaign->id) }}" method="POST" style="padding: 20px 0;">
                 @csrf
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Jenis Keahlian <span style="color: red;">*</span></label>

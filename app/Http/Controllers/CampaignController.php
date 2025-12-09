@@ -81,7 +81,9 @@ class CampaignController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('campaigns', 'public');
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $filename);
+            $validated['image'] = $filename;
         }
 
         $validated['user_id'] = auth()->id();
@@ -124,10 +126,12 @@ class CampaignController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($campaign->image) {
-                Storage::disk('public')->delete($campaign->image);
+            if ($campaign->image && file_exists(public_path('images/' . $campaign->image))) {
+                unlink(public_path('images/' . $campaign->image));
             }
-            $validated['image'] = $request->file('image')->store('campaigns', 'public');
+            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $filename);
+            $validated['image'] = $filename;
         }
 
         // Update slug if title changed
@@ -151,8 +155,8 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::where('user_id', auth()->id())->findOrFail($id);
 
-        if ($campaign->image) {
-            Storage::disk('public')->delete($campaign->image);
+        if ($campaign->image && file_exists(public_path('images/' . $campaign->image))) {
+            unlink(public_path('images/' . $campaign->image));
         }
 
         $campaign->delete();

@@ -71,6 +71,13 @@
                                         <span>Dashboard Admin</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
+                                    <a href="{{ route('dashboard.profile') }}" class="dropdown-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span>Edit Profil</span>
+                                    </a>
                                 @endif
 
                                 @if(Auth::user()->role === 'user')
@@ -82,15 +89,16 @@
                                         <span>Riwayat Donasi</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                @endif
 
-                                <a href="{{ route('dashboard.profile') }}" class="dropdown-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    <span>Edit Profil</span>
-                                </a>
+
+                                    <a href="{{ route('user.edit') }}" class="dropdown-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span>Edit Profil</span>
+                                    </a>
+                                @endif
 
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="POST" style="margin: 0;">

@@ -3218,6 +3218,32 @@ textarea.form-input {
         background-color: #0033cc;
     }
 
+.btn-publish-campaign {
+    background: rgba(0, 123, 255, 0.1); /* Biru transparan */
+    color: #007bff;
+    border: 1px solid #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-top: 50px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.btn-publish-campaign:hover {
+    background: #007bff; /* Biru solid saat hover */
+    color: white;
+}
+
+
 .btn-delete-campaign {
         background: rgba(220, 53, 69, 0.1); /* Merah transparan */
         color: #dc3545;
@@ -3233,7 +3259,7 @@ textarea.form-input {
         font-size: 14px;
         text-decoration: none;
         transition: background-color 0.2s;
-        margin-top: 50px;
+        margin-top: 20px;
         width: 100%;
         white-space: nowrap;
     }
