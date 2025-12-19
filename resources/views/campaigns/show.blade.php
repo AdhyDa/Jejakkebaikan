@@ -4,11 +4,15 @@
 
 @section('content')
 
-<div class="detail-container">
-    <div class="breadcrumb-nav">
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
         <a href="{{ route('home') }}">Home</a> <span>&gt;</span> {{ $campaign->title }}
+        </div>
     </div>
+</section>
 
+<div class="detail-container">
     <h1 class="campaign-main-title">{{ $campaign->title }}</h1>
 
     <div class="campaign-layout">

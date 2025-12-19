@@ -68,7 +68,7 @@ class HomeController extends Controller
         if ($statusDefault === 'Berlangsung') {
             $campaigns = $campaigns->where('days_remaining', '>', 0);
         } elseif ($statusDefault === 'Selesai') {
-            $campaigns = $campaigns->where('days_remaining', '<=', 0);
+            $campaigns = $campaigns->where('days_remaining', 0);
         }
 
         if (!empty($organisasi)) {
@@ -108,7 +108,7 @@ class HomeController extends Controller
 
         if ($urutkanDefault === 'Akan Berakhir') {
             $campaigns = $campaigns->filter(function($campaign) {
-                return $campaign['days_remaining'] > 0 && $campaign['days_remaining'] < 5;
+                return $campaign['days_remaining'] > 0;
             })->sortBy('days_remaining');
         }
         elseif ($urutkanDefault === 'Terbaru') {
