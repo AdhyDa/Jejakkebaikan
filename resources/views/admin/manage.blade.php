@@ -177,8 +177,6 @@
         </button>
 </div>
 
-{{-- === MODAL SECTION === --}}
-
 <div id="deleteModal" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-title" style="color:#dc3545;">Hapus Campaign?</div>
@@ -228,7 +226,6 @@
     </div>
 </div>
 
-{{-- SCRIPT --}}
 <script>
     // Modal General Logic
     function openModal(id) { document.getElementById(id).classList.add('show'); }

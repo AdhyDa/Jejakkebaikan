@@ -75,7 +75,6 @@
 
         <div class="form-group">
             <label for="end_date" class="form-label-custom">Batas Waktu Campaign <span class="text-red">*</span></label>
-            {{-- Trik agar placeholder muncul sebelum diklik jadi date picker --}}
             <input type="text" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" class="form-input-rounded" id="end_date" name="end_date" value="{{ old('end_date') }}" required placeholder="DD/MM/YY">
         </div>
 

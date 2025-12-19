@@ -18,14 +18,12 @@
             <p>Ganti Password Sekarang!</p>
         </div>
 
-        {{-- Alert Sukses --}}
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        {{-- Alert Error Validasi --}}
         @if($errors->any())
             <div class="alert alert-danger">
                 <ul>

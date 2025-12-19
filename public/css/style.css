@@ -2842,6 +2842,7 @@ textarea.form-input {
 .modal-footer-bottom {
     padding: 15px 20px;
     border-top: 1px solid #eee;
+    margin-top: -25px;
 }
 
 .btn-close-red {
@@ -3379,7 +3380,10 @@ textarea.form-input {
         cursor: pointer;
     }
 
-    .menu-link-user:hover { background-color: #0046FF; color: #f8f9fa; }
+    .menu-link-user:hover {
+        background-color: #0046FF;
+        color: #f8f9fa;
+    }
 
     /* State Active */
     .menu-link-user.active {
@@ -3388,12 +3392,23 @@ textarea.form-input {
         font-weight: 700;
         border-left: 4px solid #0046FF;
     }
-    .menu-link-user.text-danger { color: #dc3545; }
-    .menu-link-user.text-danger:hover { background-color: #dc3545; color: #fff5f5; }
-    .icon-user { font-size: 18px; }
+    .menu-link-user.text-danger {
+        color: #dc3545;
+    }
+
+    .menu-link-user.text-danger:hover {
+        background-color: #dc3545;
+        color: #fff5f5;
+    }
+
+    .icon-user {
+        font-size: 18px;
+    }
 
     /* --- CONTENT AREA STYLES --- */
-    .dashboard-content { flex: 1; }
+    .dashboard-content {
+        flex: 1;
+    }
 
     /* Tabs Top */
     .history-tabs {
@@ -3403,56 +3418,144 @@ textarea.form-input {
         background-color: white;
     }
     .tab-btn {
-        flex: 1; text-align: center; padding: 15px;
-        background: none; border: none; font-size: 15px; font-weight: 500; color: #666;
-        cursor: pointer; border-bottom: 3px solid transparent; transition: 0.2s;
+        flex: 1;
+        text-align: center;
+        padding: 15px;
+        background: none;
+        border: none;
+        font-size: 15px;
+        font-weight: 500;
+        color: #666;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: 0.2s;
     }
-    .tab-btn:hover { color: #0046FF; }
+
+    .tab-btn:hover {
+        color: #0046FF;
+    }
+
     .tab-btn.active {
-        color: #0046FF; font-weight: 700; border-bottom: 3px solid #0046FF;
+        color: #0046FF;
+        font-weight: 700;
+        border-bottom: 3px solid #0046FF;
     }
 
     /* Tables */
     .history-table {
-        width: 100%; border-collapse: collapse;
-        border: 1px solid #ddd; border-radius: 8px; overflow: hidden;
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
     }
+
     .history-table th {
-        background-color: #f8f9fa; color: #142850; font-weight: 700;
-        padding: 15px; text-align: center; border-bottom: 1px solid #ddd;
+        background-color: #f8f9fa;
+        color: #142850;
+        font-weight: 700;
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
     }
     .history-table td {
-        padding: 15px; text-align: center; border-bottom: 1px solid #eee; color: #333; font-size: 14px;
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        font-size: 14px;
     }
-    .history-table tr:last-child td { border-bottom: none; }
+
+    .history-table tr:last-child td {
+        border-bottom: none;
+    }
 
     /* Empty State */
     .empty-state {
-        text-align: center; padding: 60px 20px;
-        color: #888; font-size: 16px;
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+        font-size: 16px;
     }
 
     /* Modal Logout Styles */
     .custom-modal-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5); z-index: 9999; display: none; align-items: center; justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
     }
-    .custom-modal-overlay.show { display: flex; }
+
+    .custom-modal-overlay.show {
+        display: flex;
+    }
+
     .custom-modal-box {
-        background: white; padding: 30px; border-radius: 12px; width: 400px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 400px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-    .modal-header { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #142850; }
-    .modal-body { margin-bottom: 25px; color: #666; }
-    .modal-footer { display: flex; justify-content: flex-end; gap: 15px; }
-    .btn-cancel { background: #eee; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
-    .btn-confirm-logout { background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+    .modal-header {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #142850;
+    }
+
+    .modal-body {
+        margin-bottom: 25px;
+        color: #666;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+
+    .btn-cancel {
+        background: #eee;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-confirm-logout {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
-        .dashboard-container { flex-direction: column;}
-        .dashboard-sidebar { width: 100%; }
-        .history-table { display: block; overflow-x: auto; white-space: nowrap; }
+        .dashboard-container {
+            flex-direction: column;
+        }
+
+        .dashboard-sidebar {
+            width: 100%;
+        }
+
+        .history-table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
     }
 
 .user-breadcrumb {
@@ -3690,8 +3793,14 @@ textarea.form-input {
         align-items: center;
         justify-content: center;
     }
-    .password-toggle-btn:hover { color: #0046FF; }
-    .password-toggle-btn svg { width: 20px; height: 20px; }
+    .password-toggle-btn:hover {
+        color: #0046FF;
+    }
+
+    .password-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+    }
 
     /* Tombol Simpan */
     .btn-save {
@@ -3707,20 +3816,44 @@ textarea.form-input {
         margin-top: 10px;
         transition: background 0.2s;
     }
+
     .btn-save:hover {
         background-color: #0033cc;
     }
 
     /* Alert Styles */
     .alert {
-        padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 14px;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        font-size: 14px;
     }
-    .alert-success { background: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
-    .alert-danger { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
-    .alert-danger ul { margin: 0; padding-left: 20px; }
+
+    .alert-success {
+        background: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+    }
+
+    .alert-danger ul {
+        margin: 0;
+        padding-left: 20px;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
-        .dashboard-container { flex-direction: column; gap: 20px; }
-        .dashboard-sidebar { width: 100%; }
+        .dashboard-container {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-sidebar {
+            width: 100%;
+        }
     }

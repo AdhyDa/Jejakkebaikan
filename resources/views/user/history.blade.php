@@ -11,10 +11,7 @@
 <div class="dashboard-container-history">
 
     @include('user.sidebar')
-    {{-- Asumsi file sidebar.blade.php ada di folder views utama, jika di folder user ubah jadi user.sidebar --}}
-
     <div class="dashboard-content">
-
         <div class="history-tabs">
             <button class="tab-btn active" id="btn-dana" onclick="switchHistoryTab('dana')">
                 Donasi Dana ({{ $moneyDonations->count() }})
@@ -49,7 +46,6 @@
                 </table>
             @else
                 <div class="empty-state">
-                    {{-- <img src="{{ asset('images/empty-box.png') }}" width="150" style="margin-bottom:20px; opacity:0.5;"> --}}
                     <p>Kamu belum pernah berdonasi dana. Yuk ciptakan Jejak-mu!</p>
                 </div>
             @endif
